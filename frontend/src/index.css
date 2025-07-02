@@ -13,39 +13,43 @@
 
 html, body, #root {
   height: 100%;
+  margin: 0px;
 }
 
-#login-area {
+.auth-area {
+  position: relative;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
-#login-block {
+.auth-block {
   display: flex;
+  position: relative;
   flex-direction: column;
   background-color: white;
   width: 350px;
   align-items: center;
   border-radius: 10px;
-  height: 350px;
-  justify-content: space-evenly;
+  gap: 30px;
+  padding: 30px 0px 30px 0px;
 }
 
-#login-text {
+.auth-text {
   font-weight: bold;
   font-size: 35px;
 }
 
-#input-block {
+.input-block {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 85%;
 }
 
-.login-inputs {
+.auth-inputs {
   width: 100%;
   box-sizing: border-box;
   border: none;
@@ -54,10 +58,40 @@ html, body, #root {
   padding: 0px 0px 3px 0px;
 }
 
-#login-button {
+.auth-button {
   border-radius: 20px;
   border: none;
   width: 85%;
   height: 30px;
   background: linear-gradient(135deg, #FF4E50, #F9D423);
+}
+
+.auth-link {
+  position: absolute;
+  bottom: 5px;
+  right: 7.5%;
+  font-size: 12px;
+  color: rgba(0,0,0,.5); 
+}
+
+.left-block {
+  position: absolute;
+  left: -150px;
+  top: 0px;
+  width: 300px;
+  height: 300px;
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, #FF4E50, #F9D423);
+  border-radius: 10px;
+}
+
+.right-block {
+  position: absolute;
+  bottom: 0px;
+  right: -150px;
+  width: 300px;
+  height: 300px;
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, #FF4E50, #F9D423);
+  border-radius: 10px;
 }
