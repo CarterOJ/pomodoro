@@ -25,5 +25,5 @@ export function SignUp() {
                 <Link className="auth-link" to="/login">Login</Link>
             </div>
         </div>
-    )
+    );
 }

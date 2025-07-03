@@ -1,5 +1,9 @@
+import { Timer } from './Timer';
+
 export function Home() {
     return (
-        <h1>Home</h1>
-    )
+        <div id="timer-area">
+            <Timer />
+        </div>
+    );
 }

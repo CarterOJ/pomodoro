@@ -95,3 +95,27 @@ html, body, #root {
   background: linear-gradient(135deg, #FF4E50, #F9D423);
   border-radius: 10px;
 }
+
+#timer-area {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
+
+#timer-block {
+  display: flex;
+  flex-direction: column;
+}
+
+#timer {
+  color: white;
+  font-size: 70px;
+}
+
+#start-button {
+  border-radius: 20px;
+  border: none;
+  height: 30px;
+  background: linear-gradient(135deg, #FF4E50, #F9D423);
+}

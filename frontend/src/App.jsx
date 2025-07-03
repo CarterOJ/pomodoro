@@ -1,7 +1,7 @@
-import { Routes, Route } from 'react-router-dom'
-import { Login } from './Login'
-import { Home } from './Home'
-import { SignUp } from './SignUp'
+import { Routes, Route } from 'react-router-dom';
+import { Login } from './Login';
+import { Home } from './Home';
+import { SignUp } from './SignUp';
 
 function App() {
     return (
@@ -10,7 +10,7 @@ function App() {
             <Route path="/signup" element={<SignUp />}/>
             <Route path="/" element={<Home />}/>
         </Routes>
-    )
+    );
 }
 
-export default App
+export default App;
