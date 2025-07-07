@@ -1,19 +1,19 @@
 import { useRef, useState, useEffect } from 'react';
 
 export function Timer() {
-    const [startSecond, setStartSecond] = useState("00");
-    const [startMinute, setStartMinute] = useState("00");
-    const [startHour, setStartHour] = useState("00");
     const [second, setSecond] = useState("00");
     const [minute, setMinute] = useState("00");
     const [hour, setHour] = useState("00");
     const startTimeRef = useRef(null);
     const timerRef = useRef(null);
+    const secondRef = useRef(null);
+    const minuteRef = useRef(null);
+    const hourRef = useRef(null);
 
     function advanceTimer() {
             const now = performance.now();
             const elapsedSecs = Math.floor((now - startTimeRef.current) / 1000);
-            const remainingSecs = parseInt(startHour) * 3600 + parseInt(startMinute) * 60 + parseInt(startSecond) - elapsedSecs;
+            const remainingSecs = parseInt(hour) * 3600 + parseInt(minute) * 60 + parseInt(second) - elapsedSecs;
             if (remainingSecs < 0) {
                 alert("Time's up!");
                 return;
@@ -35,17 +35,52 @@ export function Timer() {
         advanceTimer();
     }
 
+    function timeInput(unit, setUnit, label, ref) {
+        return (
+            <input
+                className="unit"
+                type="text"
+                value={unit}
+                onChange={e => {
+                    setUnit(e.target.value);
+                }}
+                onBlur={e => {
+                    if (e.target.value === "") setUnit("00");
+                }}
+                onKeyDown={e => {
+                    if ((e.key === "ArrowLeft") && e.target.selectionStart <= 1) {
+                        e.preventDefault();
+                        if (label === "second") {
+                            minuteRef.current.focus();
+                        } else if (label === "minute") {
+                            hourRef.current.focus();
+                        }
+                    } else if (e.key === "ArrowRight" && e.target.selectionStart >= e.target.value.length) {
+                        e.preventDefault();
+                        if (label === "hour") {
+                            minuteRef.current.focus();
+                        } else if (label === "minute") {
+                            secondRef.current.focus();
+                        }
+                    }
+                }}
+                ref={ref}
+            ></input>
+        )
+    }
+
     useEffect(() => {
         return () => clearTimeout(timerRef.current);
     }, []);
 
     return (
         <div id="timer-block">
-            <div id="timer">{hour}:{minute}:{second}</div>
+            <div>
+                {timeInput(hour, setHour, "hour", hourRef)}:
+                {timeInput(minute, setMinute, "minute", minuteRef)}:
+                {timeInput(second, setSecond, "second", secondRef)}
+            </div>
             <button id="start-button" onClick={startTimer}>Start</button>
-            <input onBlur={e => setStartHour(e.target.value)}></input>
-            <input onBlur={e => setStartMinute(e.target.value)}></input>
-            <input onBlur={e => setStartSecond(e.target.value)}></input>
         </div>
     );
 }

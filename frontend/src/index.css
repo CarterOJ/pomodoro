@@ -106,11 +106,8 @@ html, body, #root {
 #timer-block {
   display: flex;
   flex-direction: column;
-}
-
-#timer {
   color: white;
-  font-size: 70px;
+  font-size: 45px;
 }
 
 #start-button {
@@ -118,4 +115,13 @@ html, body, #root {
   border: none;
   height: 30px;
   background: linear-gradient(135deg, #FF4E50, #F9D423);
+}
+
+.unit{
+  border: none;
+  background: none;
+  color: white;
+  font-size: 45px;
+  outline: none;
+  width: 55px;
 }
