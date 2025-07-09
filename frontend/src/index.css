@@ -110,18 +110,23 @@ html, body, #root {
   font-size: 45px;
 }
 
+#timer-units {
+  outline: none;
+}
+
+.timer-unit {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 45px;
+  width: 27px;
+  text-align: center;
+  outline: none;
+}
+
 #start-button {
   border-radius: 20px;
   border: none;
   height: 30px;
   background: linear-gradient(135deg, #FF4E50, #F9D423);
-}
-
-.unit{
-  border: none;
-  background: none;
-  color: white;
-  font-size: 45px;
-  outline: none;
-  width: 55px;
 }
