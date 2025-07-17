@@ -7,6 +7,7 @@ export function Timer() {
     const [minutesTens, setMinutesTens] = useState("0");
     const [hoursOnes, setHoursOnes] = useState("0");
     const [hoursTens, setHoursTens] = useState("0");
+    const [timerStarted, setTimerStarted] = useState(false);
     const startTimeRef = useRef(null);
     const timerRef = useRef(null);
     const cursorRef = useRef(null);
@@ -44,6 +45,7 @@ export function Timer() {
         if (timerRef.current) clearTimeout(timerRef.current);
         startTimeRef.current = performance.now();
         advanceTimer();
+        setTimerStarted(true);
     }
 
     function handleKeyDown(e) {
@@ -69,6 +71,11 @@ export function Timer() {
                 ref={ref}
             ></input>
         )
+    }
+
+    function pauseTimer() {
+        clearTimeout(timerRef.current);
+        setTimerStarted(false);
     }
 
     useEffect(() => {
@@ -105,7 +112,11 @@ export function Timer() {
                 {timeInput(secondsTens)}
                 {timeInput(secondsOnes, cursorRef)}
             </div>
-            <button id="start-button" onClick={startTimer}>Start</button>
+            {timerStarted === false ? 
+                <button id="start-button" onClick={startTimer}>Start</button> :
+                <div>
+                    <button onClick={pauseTimer}>Pause</button>
+                </div>}
         </div>
     );
 }
