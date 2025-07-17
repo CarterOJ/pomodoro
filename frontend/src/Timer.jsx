@@ -1,19 +1,19 @@
 import { useRef, useState, useEffect } from 'react';
 
 export function Timer() {
-    const [secondsOnes, setSecondsOnes] = useState("0");
-    const [secondsTens, setSecondsTens] = useState("0");
-    const [minutesOnes, setMinutesOnes] = useState("0");
-    const [minutesTens, setMinutesTens] = useState("0");
-    const [hoursOnes, setHoursOnes] = useState("0");
-    const [hoursTens, setHoursTens] = useState("0");
+    const [time, setTime] = useState("00:00:00");
     const [timerStarted, setTimerStarted] = useState(false);
     const startTimeRef = useRef(null);
     const timerRef = useRef(null);
     const cursorRef = useRef(null);
 
-    const time = [hoursTens, hoursOnes, minutesTens, minutesOnes, secondsTens, secondsOnes];
-    const unitSetters = [setHoursTens, setHoursOnes, setMinutesTens, setMinutesOnes, setSecondsTens, setSecondsOnes];
+    const digits = time.replace(/:/g, "");
+    const hoursTens = digits.charAt(0);
+    const hoursOnes = digits.charAt(1);
+    const minutesTens = digits.charAt(2);
+    const minutesOnes = digits.charAt(3);
+    const secondsTens = digits.charAt(4);
+    const secondsOnes = digits.charAt(5);
 
     function advanceTimer() {
             const now = performance.now();
@@ -30,12 +30,14 @@ export function Timer() {
             const hours = Math.floor(remaingTotalSeconds / 3600);
             const mins = Math.floor(remaingTotalSeconds % 3600 / 60);
             const secs = remaingTotalSeconds % 60;
-            setSecondsOnes(String(secs % 10));
-            setSecondsTens(String(Math.floor(secs / 10)));
-            setMinutesOnes(String(mins % 10));
-            setMinutesTens(String(Math.floor(mins / 10)));
-            setHoursOnes(String(hours % 10));
-            setHoursTens(String(Math.floor(hours / 10)));           
+            setTime(String(Math.floor(hours / 10)) +
+                String(hours % 10) +
+                ":" +
+                String(Math.floor(mins / 10)) +
+                String(mins % 10) + 
+                ":" +
+                String(Math.floor(secs / 10)) +
+                String(secs % 10));         
             const expectedNext = startTimeRef.current + (elapsedSecs + 1) * 1000;
             const delay = Math.max(0, expectedNext - performance.now());    
             timerRef.current = setTimeout(advanceTimer, delay);
@@ -51,11 +53,13 @@ export function Timer() {
     function handleKeyDown(e) {
         const isDigit = /^\d$/.test(e.key);
         if (isDigit) {
-            const newTime = [...time.slice(1), e.key];
-            newTime.forEach((val, i) => unitSetters[i](val));
+            const shifted = digits.slice(1) + e.key;
+            const newTime = shifted.replace(/(\d{2})(\d{2})(\d{2})/, "$1:$2:$3");
+            setTime(newTime);
         } else if (e.key === "Backspace") {
-            const newTime = ["0", ...time.slice(0, -1)];
-            newTime.forEach((val, i) => unitSetters[i](val));
+            const shifted = "0" + digits.slice(0, -1);
+            const newTime = shifted.replace(/(\d{2})(\d{2})(\d{2})/, "$1:$2:$3");
+            setTime(newTime);
         }
     }
 
