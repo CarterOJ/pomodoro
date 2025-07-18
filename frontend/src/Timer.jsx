@@ -2,7 +2,12 @@ import { useRef, useState, useEffect } from 'react';
 
 export function Timer() {
     const [time, setTime] = useState("00:00:00");
+    const [startTime, setStartTime] = useState("00:00:00");
     const [timerStarted, setTimerStarted] = useState(false);
+    const [timerReset, setTimerReset] = useState(true);
+    const [timerPaused, setTimerPaused] = useState(false);
+    const [editingTimer, setEditingTimer] = useState(false);
+
     const startTimeRef = useRef(null);
     const timerRef = useRef(null);
     const cursorRef = useRef(null);
@@ -43,27 +48,22 @@ export function Timer() {
             timerRef.current = setTimeout(advanceTimer, delay);
     }
 
-    function startTimer() {
-        if (timerRef.current) clearTimeout(timerRef.current);
-        startTimeRef.current = performance.now();
-        advanceTimer();
-        setTimerStarted(true);
-    }
-
     function handleKeyDown(e) {
         const isDigit = /^\d$/.test(e.key);
-        if (isDigit) {
+        if (isDigit && !timerStarted && !timerPaused) {
             const shifted = digits.slice(1) + e.key;
             const newTime = shifted.replace(/(\d{2})(\d{2})(\d{2})/, "$1:$2:$3");
             setTime(newTime);
-        } else if (e.key === "Backspace") {
+            setStartTime(newTime);
+        } else if (e.key === "Backspace" && !timerStarted && !timerPaused) {
             const shifted = "0" + digits.slice(0, -1);
             const newTime = shifted.replace(/(\d{2})(\d{2})(\d{2})/, "$1:$2:$3");
             setTime(newTime);
+            setStartTime(newTime);
         }
     }
 
-    function timeInput(unit, ref) {
+    function timeInput(unit, ref=null) {
         return (
             <input
                 className="timer-unit"
@@ -73,13 +73,58 @@ export function Timer() {
                 onChange={() => {}}
                 tabIndex={-1}
                 ref={ref}
+                readOnly={timerStarted || timerPaused}
+                data-paused={timerPaused}
+                data-editing={editingTimer}
             ></input>
         )
+    }
+
+    function startTimer() {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        startTimeRef.current = performance.now();
+        advanceTimer();
+        setTimerStarted(true);
+        setTimerReset(false);
+        setTimerPaused(false);
+        cursorRef.current.blur();
     }
 
     function pauseTimer() {
         clearTimeout(timerRef.current);
         setTimerStarted(false);
+        setTimerReset(false);
+        setTimerPaused(true);
+    }
+
+    function restartTimer() {
+        clearTimeout(timerRef.current);
+        setTime(startTime);
+        setTimerStarted(false);
+        setTimerReset(true);
+        setTimerPaused(false);
+    }
+
+    function handleButtons() {
+        if (timerReset === true) {
+            return (
+                <button className="timer-buttons" id="start-button" onClick={startTimer}>Start</button>                      
+            )
+        } else if (timerStarted === true) {
+            return (
+                <div id="button-row">
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}>Pause</button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>Restart</button>
+                </div>            
+            )
+        } else {
+            return (
+                <div id="button-row">
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}>Resume</button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>Restart</button>
+                </div>            
+            )
+        }
     }
 
     useEffect(() => {
@@ -87,7 +132,7 @@ export function Timer() {
     }, []);
 
     return (
-        <div id="timer-block">
+        <form id="timer-block">
             <div
                 id="timer-units"
                 onClick={() => {
@@ -96,9 +141,15 @@ export function Timer() {
                     }, 100)
                 }} 
                 onFocus={() => {
+                    if (timerReset) {
+                        setEditingTimer(true);
+                    }
                     setTimeout(() => {
                         cursorRef.current.focus();
                     }, 100)
+                }}
+                onBlur={() => {
+                    setEditingTimer(false);
                 }}
                 onKeyDown={e => {
                     if (e.key === "Home" || e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "PageUp") {
@@ -107,7 +158,9 @@ export function Timer() {
                         }, 100)
                     }
                 }}
-                tabIndex={1}
+                tabIndex={timerStarted ? -1 : 1}
+                data-paused={timerPaused}
+                data-editing={editingTimer}
                 >
                 {timeInput(hoursTens)}
                 {timeInput(hoursOnes)}:
@@ -116,11 +169,7 @@ export function Timer() {
                 {timeInput(secondsTens)}
                 {timeInput(secondsOnes, cursorRef)}
             </div>
-            {timerStarted === false ? 
-                <button id="start-button" onClick={startTimer}>Start</button> :
-                <div>
-                    <button onClick={pauseTimer}>Pause</button>
-                </div>}
-        </div>
+            {handleButtons()}
+        </form>
     );
 }

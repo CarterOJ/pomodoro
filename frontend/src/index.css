@@ -9,6 +9,7 @@
 
 :root {
   background-color: #1E1E1E;
+  --login-gradient: linear-gradient(135deg, #FF4E50, #F9D423);
 }
 
 html, body, #root {
@@ -63,7 +64,7 @@ html, body, #root {
   border: none;
   width: 85%;
   height: 30px;
-  background: linear-gradient(135deg, #FF4E50, #F9D423);
+  background: var(--login-gradient);
 }
 
 .auth-link {
@@ -81,7 +82,7 @@ html, body, #root {
   width: 300px;
   height: 300px;
   transform: rotate(45deg);
-  background: linear-gradient(135deg, #FF4E50, #F9D423);
+  background: var(--login-gradient);
   border-radius: 10px;
 }
 
@@ -92,7 +93,7 @@ html, body, #root {
   width: 300px;
   height: 300px;
   transform: rotate(45deg);
-  background: linear-gradient(135deg, #FF4E50, #F9D423);
+  background: var(--login-gradient);
   border-radius: 10px;
 }
 
@@ -124,9 +125,35 @@ html, body, #root {
   outline: none;
 }
 
-#start-button {
+#timer-units[data-paused="true"], .timer-unit[data-paused="true"] {
+  color: #FFA500;
+}
+
+#timer-units[data-editing="true"], .timer-unit[data-editing="true"] {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#button-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.timer-buttons {
+  height: 30px;
   border-radius: 20px;
   border: none;
-  height: 30px;
-  background: linear-gradient(135deg, #FF4E50, #F9D423);
+}
+
+#start-button {
+  background: linear-gradient(135deg, #00C851, #33b5e5);
+}
+
+#pause-button {
+  width: 49%;
+  background: linear-gradient(135deg, #FFA500, #FF6F00);
+}
+
+#restart-button {
+  width: 49%;
+  background: linear-gradient(135deg, #FF0033, #8B0000);
 }
