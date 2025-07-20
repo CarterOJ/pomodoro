@@ -99,19 +99,30 @@ html, body, #root {
 
 #timer-area {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 100%;
   align-items: center;
+  gap: 10px;
 }
 
 #timer-block {
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: white;
-  font-size: 45px;
+  font-size: 65px;
+  border-radius: 20px;
+  gap: 10px;
+  width: 450px;
+  padding: 15px;
+  background-color: #212121;
+  box-shadow: 0px 2px 5px rgba(0,0,0,.25);
 }
 
 #timer-units {
+  display: flex;
+  justify-content: center;
   outline: none;
 }
 
@@ -119,8 +130,8 @@ html, body, #root {
   background: none;
   border: none;
   color: white;
-  font-size: 45px;
-  width: 27px;
+  font-size: 65px;
+  width: 39px;
   text-align: center;
   outline: none;
 }
@@ -135,25 +146,41 @@ html, body, #root {
 
 #button-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 40%;
 }
 
 .timer-buttons {
-  height: 30px;
+  height: 40px;
   border-radius: 20px;
   border: none;
+  width: 40%;
 }
 
 #start-button {
+  width: 40%;
   background: linear-gradient(135deg, #00C851, #33b5e5);
 }
 
 #pause-button {
-  width: 49%;
+  width: 48%;
   background: linear-gradient(135deg, #FFA500, #FF6F00);
 }
 
 #restart-button {
-  width: 49%;
+  width: 48%;
   background: linear-gradient(135deg, #FF0033, #8B0000);
+}
+
+#add-task {
+  border: 2px dashed rgb(175, 178, 177);
+  width: 450px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #212121;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(175, 178, 177);
+  font-size: 30px;
 }
