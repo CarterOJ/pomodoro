@@ -36,6 +36,7 @@ html, body, #root {
   border-radius: 10px;
   gap: 30px;
   padding: 30px 0px 30px 0px;
+  z-index: 0;
 }
 
 .auth-text {
@@ -64,7 +65,38 @@ html, body, #root {
   border: none;
   width: 85%;
   height: 30px;
+  position: relative;
   background: var(--login-gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+}
+
+.auth-button::before {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  border-radius: 20px;
+  background-color: white;
+  z-index: -2;
+}
+
+.auth-button::after {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  margin: -0.2rem;
+  border-radius: 20px;
+  background-image: var(--login-gradient);
+  z-index: -3;
+}
+
+.auth-button:hover::after {
+  z-index: -2;
+}
+
+.auth-button:hover {
+  -webkit-text-fill-color: black;
 }
 
 .auth-link {
@@ -100,10 +132,8 @@ html, body, #root {
 #timer-area {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100%;
   align-items: center;
-  gap: 10px;
 }
 
 #timer-block {
@@ -118,6 +148,7 @@ html, body, #root {
   padding: 15px;
   background-color: #212121;
   box-shadow: 0px 2px 5px rgba(0,0,0,.25);
+  margin-bottom: 10px;
 }
 
 #timer-units {
@@ -155,6 +186,9 @@ html, body, #root {
   border-radius: 20px;
   border: none;
   width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #start-button {
@@ -178,9 +212,21 @@ html, body, #root {
   height: 50px;
   border-radius: 10px;
   background-color: #212121;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   color: rgb(175, 178, 177);
   font-size: 30px;
+}
+
+.spacer-div {
+  flex: 1;
+}
+
+#welcome-container {
+  display: flex;
+  align-items: center;
+}
+
+#welcome-text {
+  color: white;
+  font-size: 40px;
 }

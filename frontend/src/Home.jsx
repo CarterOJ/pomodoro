@@ -49,9 +49,12 @@ export function Home() {
 
     return (
         <div id="timer-area">
-            <div>Welcome, {username}</div>
+            <div className="spacer-div" id="welcome-container">
+                <div id="welcome-text">Welcome, {username}</div>
+            </div>
             <Timer />
             <Tasks />
+            <div className="spacer-div"></div>
         </div>
     );
 }

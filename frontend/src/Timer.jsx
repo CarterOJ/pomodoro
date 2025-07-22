@@ -1,8 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 export function Timer() {
-    const [time, setTime] = useState("00:00:00");
-    const [startTime, setStartTime] = useState("00:00:00");
+    const [time, setTime] = useState("00:25:00");
+    const [startTime, setStartTime] = useState("00:25:00");
     const [timerStarted, setTimerStarted] = useState(false);
     const [timerReset, setTimerReset] = useState(true);
     const [timerPaused, setTimerPaused] = useState(false);
@@ -108,20 +111,20 @@ export function Timer() {
     function handleButtons() {
         if (timerReset === true) {
             return (
-                <button className="timer-buttons" id="start-button" onClick={startTimer}>Start</button>                      
+                <button className="timer-buttons" id="start-button" onClick={startTimer}><PlayArrowIcon /></button>                      
             )
         } else if (timerStarted === true) {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}>Pause</button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>Restart</button>
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}><PauseIcon /></button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}><ReplayIcon /></button>
                 </div>            
             )
         } else {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}>Resume</button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>Restart</button>
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}><PlayArrowIcon /></button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}><ReplayIcon /></button>
                 </div>            
             )
         }
@@ -158,7 +161,7 @@ export function Timer() {
                         }, 100)
                     }
                 }}
-                tabIndex={timerStarted ? -1 : 1}
+                tabIndex={timerStarted || timerPaused ? -1 : 1}
                 data-paused={timerPaused}
                 data-editing={editingTimer}
                 >
