@@ -108,23 +108,74 @@ export function Timer() {
         setTimerPaused(false);
     }
 
+    function playGradient() {
+        return (
+            <svg height="24" width="24">
+                <defs>
+                    <linearGradient id="playGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#00C851" />
+                        <stop offset="100%" stopColor="#33b5e5" />
+                    </linearGradient>
+                </defs>
+                <path 
+                    d="M8 5v14l11-7z" 
+                    fill="url(#playGradient)">
+                </path>
+            </svg>
+        );
+    }
+
+    function pauseGradient() {
+        return (
+            <svg height="24" width="24">
+                <defs>
+                    <linearGradient id="pauseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#FFA500" />
+                        <stop offset="100%" stopColor="#FF6F00" />
+                    </linearGradient>
+                </defs>
+                <path 
+                    d="M6 19h4V5H6zm8-14v14h4V5z"
+                    fill="url(#pauseGradient)">
+                </path>
+            </svg>
+        );
+    }
+
+    function restartGradient() {
+        return (
+            <svg height="24" width="24">
+                <defs>
+                    <linearGradient id="restartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#FF0033" />
+                        <stop offset="100%" stopColor="#8B0000" />
+                    </linearGradient>
+                </defs>
+                <path 
+                    d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8" 
+                    fill="url(#restartGradient)">
+                </path>
+            </svg>
+        );
+    }
+
     function handleButtons() {
         if (timerReset === true) {
             return (
-                <button className="timer-buttons" id="start-button" onClick={startTimer}><PlayArrowIcon /></button>                      
+                <button className="timer-buttons" id="start-button" onClick={startTimer}>{playGradient()}</button>                      
             )
         } else if (timerStarted === true) {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}><PauseIcon /></button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}><ReplayIcon /></button>
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}>{pauseGradient()}</button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>{restartGradient()}</button>
                 </div>            
             )
         } else {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}><PlayArrowIcon /></button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}><ReplayIcon /></button>
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}>{playGradient()}</button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>{restartGradient()}</button>
                 </div>            
             )
         }

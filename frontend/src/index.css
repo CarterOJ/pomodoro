@@ -149,6 +149,7 @@ html, body, #root {
   background-color: #212121;
   box-shadow: 0px 2px 5px rgba(0,0,0,.25);
   margin-bottom: 10px;
+  z-index: 0;
 }
 
 #timer-units {
@@ -183,27 +184,76 @@ html, body, #root {
 
 .timer-buttons {
   height: 40px;
-  border-radius: 20px;
+  border-radius: 30px;
   border: none;
-  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  position: relative;
+  background-color: #212121;
+}
+
+.timer-buttons:hover svg {
+  z-index: 1;
+}
+
+.timer-buttons:hover path {
+  fill: black;
 }
 
 #start-button {
   width: 40%;
-  background: linear-gradient(135deg, #00C851, #33b5e5);
+}
+
+#start-button::after {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  margin: -0.2rem;
+  border-radius: 30px;
+  background-image: linear-gradient(135deg, #00C851, #33b5e5);
+  z-index: -1;
+}
+
+#start-button:hover::after {
+  z-index: 0;
 }
 
 #pause-button {
-  width: 48%;
-  background: linear-gradient(135deg, #FFA500, #FF6F00);
+  width: 45%;
+}
+
+#pause-button::after {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  margin: -0.2rem;
+  border-radius: 30px;
+  background-image: linear-gradient(135deg, #FFA500, #FF6F00);
+  z-index: -1;
+}
+
+#pause-button:hover::after {
+  z-index: 0;
 }
 
 #restart-button {
-  width: 48%;
-  background: linear-gradient(135deg, #FF0033, #8B0000);
+  width: 45%;
+}
+
+#restart-button::after {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  margin: -0.2rem;
+  border-radius: 30px;
+  background-image: linear-gradient(135deg, #FF0033, #8B0000);
+  z-index: -1;
+}
+
+#restart-button:hover::after {
+  z-index: 0;
 }
 
 #add-task {
