@@ -17,7 +17,7 @@ html, body, #root {
   margin: 0px;
 }
 
-.auth-area {
+#auth-area {
   position: relative;
   height: 100%;
   display: flex;
@@ -26,7 +26,7 @@ html, body, #root {
   overflow: hidden;
 }
 
-.auth-block {
+#auth-block {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -39,12 +39,12 @@ html, body, #root {
   z-index: 0;
 }
 
-.auth-text {
+#auth-text {
   font-weight: bold;
   font-size: 35px;
 }
 
-.input-block {
+#input-block {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -60,46 +60,56 @@ html, body, #root {
   padding: 0px 0px 3px 0px;
 }
 
-.auth-button {
-  border-radius: 20px;
-  border: none;
+#auth-button {
   width: 85%;
   height: 30px;
   position: relative;
-  background: var(--login-gradient);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   cursor: pointer;
+  border: none;
+  border-radius: 20px;
+  background-color: transparent;
 }
 
-.auth-button::before {
+#auth-button-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: var(--login-gradient);
+  background-clip: text;
+  color: transparent;
+  transition: color 0.3s ease;
+}
+
+#auth-button::before {
   content: '';
   position: absolute;
   inset: 0px;
   border-radius: 20px;
   background-color: white;
-  z-index: -2;
+  z-index: -1;
+  transition: background-color 0.3s ease;
 }
 
-.auth-button::after {
+#auth-button::after {
   content: '';
   position: absolute;
   inset: 0px;
   margin: -0.2rem;
   border-radius: 20px;
   background-image: var(--login-gradient);
-  z-index: -3;
-}
-
-.auth-button:hover::after {
   z-index: -2;
 }
 
-.auth-button:hover {
-  -webkit-text-fill-color: black;
+#auth-button:hover::before {
+  background-color: transparent;
 }
 
-.auth-link {
+#auth-button:hover #auth-button-text {
+  color: white;
+}
+
+#auth-link {
   position: absolute;
   bottom: 5px;
   right: 7.5%;
@@ -107,7 +117,7 @@ html, body, #root {
   color: rgba(0,0,0,.5); 
 }
 
-.left-block {
+#left-block {
   position: absolute;
   left: -150px;
   top: 0px;
@@ -118,7 +128,7 @@ html, body, #root {
   border-radius: 10px;
 }
 
-.right-block {
+#right-block {
   position: absolute;
   bottom: 0px;
   right: -150px;
@@ -176,34 +186,42 @@ html, body, #root {
   color: rgba(255, 255, 255, 0.6);
 }
 
+.timer-buttons {
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  background-color: transparent;
+}
+
+#start-button {
+  width: 40%;
+}
+
+#pause-button, #restart-button {
+  width: 45%;
+}
+
+.gradient-path {
+  transition: opacity 0.3s ease;
+}
+
 #button-row {
   display: flex;
   justify-content: space-around;
   width: 40%;
 }
 
-.timer-buttons {
-  height: 40px;
-  border-radius: 30px;
-  border: none;
+#start-text, #pause-text, #restart-text {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  position: relative;
+  border-radius: 30px;
   background-color: #212121;
-}
-
-.timer-buttons:hover svg {
-  z-index: 1;
-}
-
-.timer-buttons:hover path {
-  fill: black;
-}
-
-#start-button {
-  width: 40%;
+  inset: 0px;
+  position: absolute;
+  transition: background-color 0.3s ease;
 }
 
 #start-button::after {
@@ -216,14 +234,6 @@ html, body, #root {
   z-index: -1;
 }
 
-#start-button:hover::after {
-  z-index: 0;
-}
-
-#pause-button {
-  width: 45%;
-}
-
 #pause-button::after {
   content: '';
   position: absolute;
@@ -232,14 +242,6 @@ html, body, #root {
   border-radius: 30px;
   background-image: linear-gradient(135deg, #FFA500, #FF6F00);
   z-index: -1;
-}
-
-#pause-button:hover::after {
-  z-index: 0;
-}
-
-#restart-button {
-  width: 45%;
 }
 
 #restart-button::after {
@@ -252,19 +254,33 @@ html, body, #root {
   z-index: -1;
 }
 
-#restart-button:hover::after {
-  z-index: 0;
+.timer-buttons:hover #start-text, .timer-buttons:hover #pause-text, .timer-buttons:hover #restart-text {
+  background-color: transparent;
+}
+
+.timer-buttons:hover .gradient-path {
+  opacity: 0;
 }
 
 #add-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 2px dashed rgb(175, 178, 177);
   width: 450px;
   height: 50px;
   border-radius: 10px;
   background-color: #212121;
-  text-align: center;
   color: rgb(175, 178, 177);
   font-size: 30px;
+  cursor: pointer;
+  transition: color 0.4s ease;
+  transition: background-color 0.2s ease;
+}
+
+#add-task:hover {
+  background-color: rgb(175, 178, 177);
+  color: #212121;
 }
 
 .spacer-div {

@@ -1,5 +1,5 @@
 export function Tasks() {
     return (
-        <div id="add-task">+</div>
+        <button id="add-task">+</button>
     )
 }

@@ -28,12 +28,12 @@ export function Login() {
     }
 
     return (
-        <div className="auth-area">
-            <div className="left-block"></div>
-            <div className="right-block"></div>
-            <form className="auth-block" onSubmit={handleLogin}>
-                <div className="auth-text">Login</div>
-                <div className="input-block">
+        <div id="auth-area">
+            <div id="left-block"></div>
+            <div id="right-block"></div>
+            <form id="auth-block" onSubmit={handleLogin}>
+                <div id="auth-text">Login</div>
+                <div id="input-block">
                     <div>
                         <div>Username</div>
                         <input 
@@ -53,8 +53,10 @@ export function Login() {
                         ></input>
                     </div>
                 </div>
-                <button className="auth-button">LOGIN</button>
-                <Link className="auth-link" to="/signup">Sign Up</Link>
+                <button id="auth-button">
+                    <div id="auth-button-text">LOGIN</div>
+                </button>
+                <Link id="auth-link" to="/signup">Sign Up</Link>
             </form>
         </div>
     );

@@ -1,7 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
-import ReplayIcon from '@mui/icons-material/Replay';
 
 export function Timer() {
     const [time, setTime] = useState("00:25:00");
@@ -108,7 +105,7 @@ export function Timer() {
         setTimerPaused(false);
     }
 
-    function playGradient() {
+    function startGradient() {
         return (
             <svg height="24" width="24">
                 <defs>
@@ -118,6 +115,11 @@ export function Timer() {
                     </linearGradient>
                 </defs>
                 <path 
+                    d="M8 5v14l11-7z" 
+                    fill="#212121">
+                </path>
+                <path 
+                    className="gradient-path"
                     d="M8 5v14l11-7z" 
                     fill="url(#playGradient)">
                 </path>
@@ -136,6 +138,11 @@ export function Timer() {
                 </defs>
                 <path 
                     d="M6 19h4V5H6zm8-14v14h4V5z"
+                    fill="#212121">
+                </path>
+                <path 
+                    className="gradient-path"
+                    d="M6 19h4V5H6zm8-14v14h4V5z"
                     fill="url(#pauseGradient)">
                 </path>
             </svg>
@@ -153,6 +160,11 @@ export function Timer() {
                 </defs>
                 <path 
                     d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8" 
+                    fill="#212121">
+                </path>
+                <path 
+                    className="gradient-path"
+                    d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8" 
                     fill="url(#restartGradient)">
                 </path>
             </svg>
@@ -162,20 +174,30 @@ export function Timer() {
     function handleButtons() {
         if (timerReset === true) {
             return (
-                <button className="timer-buttons" id="start-button" onClick={startTimer}>{playGradient()}</button>                      
+                <button className="timer-buttons" id="start-button" onClick={startTimer}>
+                    <div id="start-text">{startGradient()}</div>
+                </button>                      
             )
         } else if (timerStarted === true) {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}>{pauseGradient()}</button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>{restartGradient()}</button>
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}>
+                        <div id="pause-text">{pauseGradient()}</div>
+                    </button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>
+                        <div id="restart-text">{restartGradient()}</div>
+                    </button>
                 </div>            
             )
         } else {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}>{playGradient()}</button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>{restartGradient()}</button>
+                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}>
+                        <div id="pause-text">{startGradient()}</div>
+                    </button>
+                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>
+                        <div id="restart-text">{restartGradient()}</div>
+                    </button>
                 </div>            
             )
         }
