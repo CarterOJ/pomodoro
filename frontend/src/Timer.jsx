@@ -75,8 +75,8 @@ export function Timer() {
                 ref={ref}
                 readOnly={timerStarted || timerPaused}
                 data-paused={timerPaused}
-                data-editing={editingTimer}
-            ></input>
+                data-editing={editingTimer}>
+            </input>
         )
     }
 
@@ -174,29 +174,48 @@ export function Timer() {
     function handleButtons() {
         if (timerReset === true) {
             return (
-                <button className="timer-buttons" id="start-button" onClick={startTimer}>
-                    <div id="start-text">{startGradient()}</div>
+                <button 
+                    className="timer-buttons" 
+                    id="start-button" 
+                    onClick={startTimer}>
+                        {startGradient()}
                 </button>                      
             )
         } else if (timerStarted === true) {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={pauseTimer}>
-                        <div id="pause-text">{pauseGradient()}</div>
+                    <button 
+                        type="button" 
+                        className="timer-buttons" 
+                        id="pause-button" 
+                        onClick={pauseTimer}>
+                            {pauseGradient()}
                     </button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>
-                        <div id="restart-text">{restartGradient()}</div>
+                    <button 
+                        type="button" 
+                        className="timer-buttons" 
+                        id="restart-button" 
+                        onClick={restartTimer}>
+                            {restartGradient()}
                     </button>
                 </div>            
             )
         } else {
             return (
                 <div id="button-row">
-                    <button type="button" className="timer-buttons" id="pause-button" onClick={startTimer}>
-                        <div id="pause-text">{startGradient()}</div>
+                    <button 
+                        type="button" 
+                        className="timer-buttons" 
+                        id="pause-button" 
+                        onClick={startTimer}>
+                            {startGradient()}
                     </button>
-                    <button type="button" className="timer-buttons" id="restart-button" onClick={restartTimer}>
-                        <div id="restart-text">{restartGradient()}</div>
+                    <button 
+                        type="button"
+                        className="timer-buttons" 
+                        id="restart-button" 
+                        onClick={restartTimer}>
+                            {restartGradient()}
                     </button>
                 </div>            
             )
@@ -236,14 +255,13 @@ export function Timer() {
                 }}
                 tabIndex={timerStarted || timerPaused ? -1 : 1}
                 data-paused={timerPaused}
-                data-editing={editingTimer}
-                >
-                {timeInput(hoursTens)}
-                {timeInput(hoursOnes)}:
-                {timeInput(minutesTens)}
-                {timeInput(minutesOnes)}:
-                {timeInput(secondsTens)}
-                {timeInput(secondsOnes, cursorRef)}
+                data-editing={editingTimer}>
+                    {timeInput(hoursTens)}
+                    {timeInput(hoursOnes)}:
+                    {timeInput(minutesTens)}
+                    {timeInput(minutesOnes)}:
+                    {timeInput(secondsTens)}
+                    {timeInput(secondsOnes, cursorRef)}
             </div>
             {handleButtons()}
         </form>

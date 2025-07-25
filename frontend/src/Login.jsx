@@ -53,9 +53,7 @@ export function Login() {
                         ></input>
                     </div>
                 </div>
-                <button id="auth-button">
-                    <div id="auth-button-text">LOGIN</div>
-                </button>
+                <button id="auth-button">LOGIN</button>
                 <Link id="auth-link" to="/signup">Sign Up</Link>
             </form>
         </div>

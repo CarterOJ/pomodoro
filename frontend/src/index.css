@@ -67,14 +67,6 @@ html, body, #root {
   cursor: pointer;
   border: none;
   border-radius: 20px;
-  background-color: transparent;
-}
-
-#auth-button-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
   background: var(--login-gradient);
   background-clip: text;
   color: transparent;
@@ -105,7 +97,7 @@ html, body, #root {
   background-color: transparent;
 }
 
-#auth-button:hover #auth-button-text {
+#auth-button:hover {
   color: white;
 }
 
@@ -192,7 +184,11 @@ html, body, #root {
   border: none;
   cursor: pointer;
   position: relative;
-  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #212121;
+  transition: background-color 0.3s ease;
 }
 
 #start-button {
@@ -211,17 +207,6 @@ html, body, #root {
   display: flex;
   justify-content: space-around;
   width: 40%;
-}
-
-#start-text, #pause-text, #restart-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  background-color: #212121;
-  inset: 0px;
-  position: absolute;
-  transition: background-color 0.3s ease;
 }
 
 #start-button::after {
@@ -254,7 +239,7 @@ html, body, #root {
   z-index: -1;
 }
 
-.timer-buttons:hover #start-text, .timer-buttons:hover #pause-text, .timer-buttons:hover #restart-text {
+.timer-buttons:hover {
   background-color: transparent;
 }
 
@@ -265,7 +250,6 @@ html, body, #root {
 #add-task {
   display: flex;
   justify-content: center;
-  align-items: center;
   border: 2px dashed rgb(175, 178, 177);
   width: 450px;
   height: 50px;
