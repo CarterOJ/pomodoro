@@ -80,7 +80,7 @@ export function Timer() {
         )
     }
 
-    function startTimer() {
+    function startTimer(e) {
         if (timerRef.current) clearTimeout(timerRef.current);
         startTimeRef.current = performance.now();
         advanceTimer();
@@ -88,13 +88,15 @@ export function Timer() {
         setTimerReset(false);
         setTimerPaused(false);
         cursorRef.current.blur();
+        e.currentTarget.blur();
     }
 
-    function pauseTimer() {
+    function pauseTimer(e) {
         clearTimeout(timerRef.current);
         setTimerStarted(false);
         setTimerReset(false);
         setTimerPaused(true);
+        e.currentTarget.blur();
     }
 
     function restartTimer() {
@@ -110,8 +112,16 @@ export function Timer() {
             <svg height="24" width="24">
                 <defs>
                     <linearGradient id="playGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#00C851" />
-                        <stop offset="100%" stopColor="#33b5e5" />
+                        {timerPaused ? 
+                            <>
+                                <stop offset="0%" stopColor="#FFA500" />
+                                <stop offset="100%" stopColor="#FF6F00" /> 
+                            </> :
+                            <>
+                                <stop offset="0%" stopColor="#00C851" />
+                                <stop offset="100%" stopColor="#33b5e5" /> 
+                            </>
+                        }
                     </linearGradient>
                 </defs>
                 <path 
@@ -181,45 +191,25 @@ export function Timer() {
                         {startGradient()}
                 </button>                      
             )
-        } else if (timerStarted === true) {
-            return (
-                <div id="button-row">
-                    <button 
-                        type="button" 
-                        className="timer-buttons" 
-                        id="pause-button" 
-                        onClick={pauseTimer}>
-                            {pauseGradient()}
-                    </button>
-                    <button 
-                        type="button" 
-                        className="timer-buttons" 
-                        id="restart-button" 
-                        onClick={restartTimer}>
-                            {restartGradient()}
-                    </button>
-                </div>            
-            )
-        } else {
-            return (
-                <div id="button-row">
-                    <button 
-                        type="button" 
-                        className="timer-buttons" 
-                        id="pause-button" 
-                        onClick={startTimer}>
-                            {startGradient()}
-                    </button>
-                    <button 
-                        type="button"
-                        className="timer-buttons" 
-                        id="restart-button" 
-                        onClick={restartTimer}>
-                            {restartGradient()}
-                    </button>
-                </div>            
-            )
-        }
+        } 
+        return (
+            <div id="button-row">
+                <button 
+                    type="button" 
+                    className="timer-buttons" 
+                    id="pause-button" 
+                    onClick={timerStarted ? pauseTimer : startTimer}>
+                        {timerStarted ? pauseGradient() : startGradient()}
+                </button>
+                <button 
+                    type="button" 
+                    className="timer-buttons" 
+                    id="restart-button" 
+                    onClick={restartTimer}>
+                        {restartGradient()}
+                </button>
+            </div>  
+        )
     }
 
     useEffect(() => {

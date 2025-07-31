@@ -189,6 +189,7 @@ html, body, #root {
   align-items: center;
   background-color: #212121;
   transition: background-color 0.3s ease;
+  outline: none;
 }
 
 #start-button {
@@ -239,11 +240,11 @@ html, body, #root {
   z-index: -1;
 }
 
-.timer-buttons:hover {
+.timer-buttons:hover, .timer-buttons:focus {
   background-color: transparent;
 }
 
-.timer-buttons:hover .gradient-path {
+.timer-buttons:hover .gradient-path, .timer-buttons:focus .gradient-path {
   opacity: 0;
 }
 
@@ -260,9 +261,10 @@ html, body, #root {
   cursor: pointer;
   transition: color 0.4s ease;
   transition: background-color 0.2s ease;
+  outline: none;
 }
 
-#add-task:hover {
+#add-task:hover, #add-task:focus {
   background-color: rgb(175, 178, 177);
   color: #212121;
 }
@@ -279,4 +281,28 @@ html, body, #root {
 #welcome-text {
   color: white;
   font-size: 40px;
+}
+
+#task-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 90%;
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 30px;
+  backdrop-filter: blur(45px);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.089);
+  visibility: hidden;
+  opacity: 0%;
+  transition: opacity 0.3s ease;
+}
+
+#task-form[data-visible="true"] {
+  visibility: visible;
+  opacity: 100%;
+  overflow: hidden;
 }
