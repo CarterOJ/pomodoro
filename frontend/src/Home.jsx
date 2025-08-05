@@ -1,10 +1,12 @@
 import { Timer } from './Timer';
 import { Tasks } from './Tasks';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { jwtDecode } from 'jwt-decode';
 
 export function Home() {
+    const [taskForm, setTaskForm] = useState(false);
+
     const username = localStorage.getItem("username");
 
     const navigate = useNavigate();
@@ -52,8 +54,8 @@ export function Home() {
             <div className="spacer-div" id="welcome-container">
                 <div id="welcome-text">Welcome, {username}</div>
             </div>
-            <Timer />
-            <Tasks />
+            <Timer taskForm={taskForm}/>
+            <Tasks taskForm={taskForm} setTaskForm={setTaskForm}/>
             <div className="spacer-div"></div>
         </div>
     );

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 
-export function Timer() {
+export function Timer({ taskForm }) {
     const [time, setTime] = useState("00:25:00");
     const [startTime, setStartTime] = useState("00:25:00");
     const [timerStarted, setTimerStarted] = useState(false);
@@ -217,7 +217,7 @@ export function Timer() {
     }, []);
 
     return (
-        <form id="timer-block">
+        <form id="timer-block" inert={taskForm}>
             <div
                 id="timer-units"
                 onClick={() => {
