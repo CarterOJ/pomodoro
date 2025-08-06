@@ -220,27 +220,15 @@ export function Timer({ taskForm }) {
         <form id="timer-block" inert={taskForm}>
             <div
                 id="timer-units"
-                onClick={() => {
-                    setTimeout(() => {
-                        cursorRef.current.setSelectionRange(1, 1);
-                    }, 100)
-                }} 
+                onClick={() => setTimeout(() => cursorRef.current.setSelectionRange(1, 1), 100)} 
                 onFocus={() => {
-                    if (timerReset) {
-                        setEditingTimer(true);
-                    }
-                    setTimeout(() => {
-                        cursorRef.current.focus();
-                    }, 100)
+                    if (timerReset) setEditingTimer(true);
+                    setTimeout(() => cursorRef.current.focus(), 100);
                 }}
-                onBlur={() => {
-                    setEditingTimer(false);
-                }}
+                onBlur={() => setEditingTimer(false)}
                 onKeyDown={e => {
                     if (e.key === "Home" || e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "PageUp") {
-                        setTimeout(() => {
-                            cursorRef.current.setSelectionRange(1, 1);
-                        }, 100)
+                        setTimeout(() => cursorRef.current.setSelectionRange(1, 1), 100);
                     }
                 }}
                 tabIndex={timerStarted || timerPaused ? -1 : 1}

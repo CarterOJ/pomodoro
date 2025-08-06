@@ -336,8 +336,9 @@ html, body, #root {
   color: white;
   padding: 5px;
   height: 25px;
-  width: 40px;
+  width: 20px;
   outline: none;
+  text-align: center;
 }
 
 #work-cycles-container {
@@ -385,4 +386,13 @@ html, body, #root {
   height: 30px;
   width: 55px;
   cursor: pointer;
+}
+
+#notes {
+  resize: none;
+  background: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 5px;
+  color: gray;
 }

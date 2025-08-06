@@ -1,28 +1,83 @@
+import { useState } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 export function Tasks({ taskForm, setTaskForm }) {
-    function handleAddTask(e) {
-        setTaskForm(true);
-        e.target.blur();
-    }
+    const [workCycles, setWorkCycles] = useState(1);
+    const [addNote, setAddNote] = useState(false);
+    const [taskName, setTaskName] = useState("");
 
     return (
         <>
-            <button id="add-task" onClick={handleAddTask} inert={taskForm}>+</button>
+            <button 
+                id="add-task" 
+                onClick={e => {
+                    setTaskForm(true);
+                    e.target.blur();
+                }} 
+                inert={taskForm}>
+                    +
+            </button>
             <form id="task-form" data-visible={taskForm} inert={!taskForm}>
-                <input id="task-name" type="text" placeholder="Task Name"></input>
+                <input 
+                    id="task-name" 
+                    type="text" 
+                    placeholder="Task Name" 
+                    maxLength={15}
+                    value={taskName}
+                    onChange={e => setTaskName(e.target.value)}>
+                </input>
                 <div id="work-cycles-title">Work Cycles:</div>
                 <div id="work-cycles-container">
-                    <input id="work-cycles" type="text"></input>
-                    <button type="button" className="work-cycle-buttons"><ArrowUpwardIcon /></button>
-                    <button type="button" className="work-cycle-buttons"><ArrowDownwardIcon /></button>
+                    <input 
+                        id="work-cycles" 
+                        type="text"
+                        value={workCycles}
+                        onChange={e => {
+                            const val = e.target.value
+                            if (/^\d*$/.test(val)) setWorkCycles(val === "" ? val : Number(val));
+                        }}
+                        onBlur={() => {
+                            if (workCycles === "" || workCycles === 0) setWorkCycles(1);
+                            else if (workCycles > 10) setWorkCycles(10);
+                        }}>
+                    </input>
+                    <button 
+                        type="button" 
+                        className="work-cycle-buttons"
+                        onClick={() => setWorkCycles(prev => prev < 10 ? prev + 1 : prev)}>
+                            <ArrowUpwardIcon />
+                    </button>
+                    <button 
+                        type="button" 
+                        className="work-cycle-buttons"
+                        onClick={() => setWorkCycles(prev => prev > 1 ? prev - 1 : prev)}>
+                            <ArrowDownwardIcon />
+                    </button>
                 </div>
+                {addNote && <textarea id="notes" placeholder="Notes..." rows={4}></textarea>}
                 <div id="task-options-container">
-                    <button type="button" id="add-note-button"><NoteAddIcon /></button>
+                    <button 
+                        type="button" 
+                        id="add-note-button"
+                        onClick={() => setAddNote(true)}>
+                            <NoteAddIcon />
+                    </button>
                     <div>
-                        <button type="button" id="cancel-button" onClick={() => {setTaskForm(false)}}>Cancel</button>
+                        <button 
+                            type="button" 
+                            id="cancel-button" 
+                            onClick={() => {
+                                setTaskForm(false);
+                                setTimeout(() => {
+                                    setTaskName("");
+                                    setWorkCycles(1);
+                                    setAddNote(false);
+                                }, 300)
+                            }}>
+                                Cancel
+                        </button>
                         <button id="save-button">Save</button>
                     </div>
                 </div>
