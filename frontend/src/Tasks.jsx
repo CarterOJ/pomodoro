@@ -6,7 +6,30 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 export function Tasks({ taskForm, setTaskForm }) {
     const [workCycles, setWorkCycles] = useState(1);
     const [addNote, setAddNote] = useState(false);
-    const [taskName, setTaskName] = useState("");
+    const [name, setName] = useState("");
+    const [notes, setNotes] = useState("");
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const res = await fetch("http://localhost:8000/api/pomodoro/tasks/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("access")}`,
+            },
+            body: JSON.stringify({name, workCycles, notes})
+        });
+        exitTaskWindow()
+    }
+
+    function exitTaskWindow() {
+        setTaskForm(false);
+        setTimeout(() => {
+            setName("");
+            setWorkCycles(1);
+            setAddNote(false);
+        }, 300)
+    }
 
     return (
         <>
@@ -19,14 +42,15 @@ export function Tasks({ taskForm, setTaskForm }) {
                 inert={taskForm}>
                     +
             </button>
-            <form id="task-form" data-visible={taskForm} inert={!taskForm}>
+            <form id="task-form" data-visible={taskForm} inert={!taskForm} onSubmit={handleSubmit}>
                 <input 
                     id="task-name" 
                     type="text" 
                     placeholder="Task Name" 
                     maxLength={15}
-                    value={taskName}
-                    onChange={e => setTaskName(e.target.value)}>
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    required>
                 </input>
                 <div id="work-cycles-title">Work Cycles:</div>
                 <div id="work-cycles-container">
@@ -56,7 +80,13 @@ export function Tasks({ taskForm, setTaskForm }) {
                             <ArrowDownwardIcon />
                     </button>
                 </div>
-                {addNote && <textarea id="notes" placeholder="Notes..." rows={4}></textarea>}
+                {addNote && 
+                    <textarea 
+                        id="notes" 
+                        placeholder="Notes..." 
+                        rows={4} 
+                        value={notes}
+                        onChange={e => setNotes(e.target.value)}></textarea>}
                 <div id="task-options-container">
                     <button 
                         type="button" 
@@ -65,19 +95,7 @@ export function Tasks({ taskForm, setTaskForm }) {
                             <NoteAddIcon />
                     </button>
                     <div>
-                        <button 
-                            type="button" 
-                            id="cancel-button" 
-                            onClick={() => {
-                                setTaskForm(false);
-                                setTimeout(() => {
-                                    setTaskName("");
-                                    setWorkCycles(1);
-                                    setAddNote(false);
-                                }, 300)
-                            }}>
-                                Cancel
-                        </button>
+                        <button type="button" id="cancel-button" onClick={exitTaskWindow}>Cancel</button>
                         <button id="save-button">Save</button>
                     </div>
                 </div>
