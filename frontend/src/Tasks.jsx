@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
-export function Tasks({ taskForm, setTaskForm }) {
+export function Tasks({ taskForm, setTaskForm, authenticate }) {
     const [workCycles, setWorkCycles] = useState(1);
     const [addNote, setAddNote] = useState(false);
     const [name, setName] = useState("");
     const [notes, setNotes] = useState("");
+    const [tasks, setTasks] = useState([]);
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("http://localhost:8000/api/pomodoro/tasks/", {
+        await authenticate();
+        await fetch("http://localhost:8000/api/pomodoro/tasks/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -19,7 +21,8 @@ export function Tasks({ taskForm, setTaskForm }) {
             },
             body: JSON.stringify({name, workCycles, notes})
         });
-        exitTaskWindow()
+        await getTasks();
+        exitTaskWindow();
     }
 
     function exitTaskWindow() {
@@ -28,20 +31,28 @@ export function Tasks({ taskForm, setTaskForm }) {
             setName("");
             setWorkCycles(1);
             setAddNote(false);
+            setNotes("");
         }, 300)
     }
 
+    async function getTasks() {
+        await authenticate();
+        const res = await fetch("http://localhost:8000/api/pomodoro/tasks/", {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("access")}`
+            }
+        });
+        if (res.ok) {
+            setTasks(await res.json());
+        }
+    }
+
+    useEffect(() => {
+        getTasks();
+    }, []);
+
     return (
         <>
-            <button 
-                id="add-task" 
-                onClick={e => {
-                    setTaskForm(true);
-                    e.target.blur();
-                }} 
-                inert={taskForm}>
-                    +
-            </button>
             <form id="task-form" data-visible={taskForm} inert={!taskForm} onSubmit={handleSubmit}>
                 <input 
                     id="task-name" 
@@ -100,6 +111,23 @@ export function Tasks({ taskForm, setTaskForm }) {
                     </div>
                 </div>
             </form>
+            <div id="tasks-container">
+                {tasks.map(task => 
+                    <div key={task.id} className="task-container">
+                        <div>{task.name}</div>
+                        <div>0/{task.work_cycles}</div>
+                    </div>
+                )}
+                <button 
+                    id="add-task" 
+                    onClick={e => {
+                        setTaskForm(true);
+                        e.target.blur();
+                    }} 
+                    inert={taskForm}>
+                        +
+                </button>
+            </div>
         </>
     )
 }

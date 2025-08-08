@@ -39,24 +39,25 @@ export function Home() {
         return refreshSuccess;
     }
 
+    async function authenticate() {
+        const valid = await isAccessValid();
+        if (!valid) {
+            localStorage.clear();
+            navigate("/login");
+        }     
+    }
+
     useEffect(() => {
-        (async () => {
-            const valid = await isAccessValid();
-            if (!valid) {
-                localStorage.clear();
-                navigate("/login");
-            }
-        })();
+        authenticate();
     }, []);
 
     return (
         <div id="timer-area">
-            <div className="spacer-div" id="welcome-container">
+            <div id="welcome-container">
                 <div id="welcome-text">Welcome, {username}</div>
             </div>
             <Timer taskForm={taskForm}/>
-            <Tasks taskForm={taskForm} setTaskForm={setTaskForm}/>
-            <div className="spacer-div"></div>
+            <Tasks taskForm={taskForm} setTaskForm={setTaskForm} authenticate={authenticate}/>
         </div>
     );
 }
