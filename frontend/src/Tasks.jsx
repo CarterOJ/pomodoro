@@ -2,24 +2,53 @@ import { useState, useEffect } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export function Tasks({ taskForm, setTaskForm, authenticate }) {
     const [workCycles, setWorkCycles] = useState(1);
     const [addNote, setAddNote] = useState(false);
     const [name, setName] = useState("");
     const [notes, setNotes] = useState("");
+    const [taskId, setTaskId] = useState();
     const [tasks, setTasks] = useState([]);
+    const [editingTasks, setEditingTasks] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
         await authenticate();
-        await fetch("http://localhost:8000/api/pomodoro/tasks/", {
-            method: "POST",
+        if (editingTasks === true) {
+            await fetch(`http://localhost:8000/api/pomodoro/tasks/${taskId}/`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("access")}`,
+                },
+                body: JSON.stringify({name, work_cycles: workCycles, notes})
+            }); 
+        } else {
+            await fetch("http://localhost:8000/api/pomodoro/tasks/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("access")}`,
+                },
+                body: JSON.stringify({name, work_cycles: workCycles, notes})
+            }); 
+        }
+        await getTasks();
+        exitTaskWindow();
+    }
+
+    async function deleteTask() {
+        setLoading(true);
+        await authenticate();
+        await fetch(`http://localhost:8000/api/pomodoro/tasks/${taskId}/`, {
+            method: "DELETE",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("access")}`,
             },
-            body: JSON.stringify({name, workCycles, notes})
         });
         await getTasks();
         exitTaskWindow();
@@ -32,6 +61,7 @@ export function Tasks({ taskForm, setTaskForm, authenticate }) {
             setWorkCycles(1);
             setAddNote(false);
             setNotes("");
+            setEditingTasks(false);
         }, 300)
     }
 
@@ -45,6 +75,7 @@ export function Tasks({ taskForm, setTaskForm, authenticate }) {
         if (res.ok) {
             setTasks(await res.json());
         }
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -105,19 +136,43 @@ export function Tasks({ taskForm, setTaskForm, authenticate }) {
                         onClick={() => setAddNote(true)}>
                             <NoteAddIcon />
                     </button>
-                    <div>
-                        <button type="button" id="cancel-button" onClick={exitTaskWindow}>Cancel</button>
-                        <button id="save-button">Save</button>
-                    </div>
+                    {editingTasks ?
+                        <div>
+                            <button type="button" id="decline-button" onClick={deleteTask}>Delete</button>
+                            <button id="confirm-button">Update</button>
+                        </div> :
+                        <div>
+                            <button type="button" id="decline-button" onClick={exitTaskWindow}>Cancel</button>
+                            <button id="confirm-button">Save</button>                            
+                        </div>
+                    }
                 </div>
             </form>
             <div id="tasks-container">
-                {tasks.map(task => 
-                    <div key={task.id} className="task-container">
-                        <div>{task.name}</div>
-                        <div>0/{task.work_cycles}</div>
-                    </div>
-                )}
+                {loading ? <div id="loading">Loading...</div> :
+                    tasks.map(task => 
+                        <div key={task.id} className="task-container">
+                            <div>{task.name}</div>
+                            <div className="right-task-container">
+                                <div>0/{task.work_cycles}</div>
+                                <button 
+                                    className="task-settings-button"
+                                    onClick={e => {
+                                        setTaskForm(true);
+                                        setEditingTasks(true);
+                                        setName(task.name);
+                                        setWorkCycles(task.work_cycles);
+                                        setNotes(task.notes);
+                                        setTaskId(task.id);
+                                        e.currentTarget.blur();
+                                    }}
+                                    inert={taskForm}>
+                                        <MoreVertIcon />
+                                </button>
+                            </div>
+                        </div>
+                    )
+                }
                 <button 
                     id="add-task" 
                     onClick={e => {

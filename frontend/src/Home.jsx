@@ -3,6 +3,7 @@ import { Tasks } from './Tasks';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { jwtDecode } from 'jwt-decode';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export function Home() {
     const [taskForm, setTaskForm] = useState(false);
@@ -53,6 +54,16 @@ export function Home() {
 
     return (
         <div id="timer-area">
+            <button 
+                tabIndex={1} 
+                id="logout-button" 
+                inert={taskForm}
+                onClick={e => {
+                    localStorage.clear();
+                    navigate("/login");
+                }}>
+                    <LogoutIcon fontSize='large'/>
+            </button>
             <div id="welcome-container">
                 <div id="welcome-text">Welcome, {username}</div>
             </div>
