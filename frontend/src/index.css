@@ -142,13 +142,15 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   color: white;
   font-size: 65px;
   border-radius: 20px;
-  gap: 10px;
-  width: 450px;
+  width: 480px;
+  height: 175px;
+  box-sizing: border-box;
   padding: 15px;
-  background-color: #212121;
+  background-color: #222222;
   box-shadow: 0px 2px 5px rgba(0,0,0,.25);
   margin-bottom: 10px;
   z-index: 0;
@@ -187,7 +189,7 @@ html, body, #root {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #212121;
+  background-color: #222222;
   transition: background-color 0.3s ease;
   outline: none;
 }
@@ -255,7 +257,7 @@ html, body, #root {
   width: 450px;
   height: 50px;
   border-radius: 10px;
-  background-color: #212121;
+  background-color: #222222;
   color: rgb(175, 178, 177);
   font-size: 30px;
   cursor: pointer;
@@ -267,7 +269,7 @@ html, body, #root {
 
 #add-task:hover, #add-task:focus {
   background-color: rgb(175, 178, 177);
-  color: #212121;
+  color: #222222;
 }
 
 #welcome-container {
@@ -301,6 +303,7 @@ html, body, #root {
   justify-content: center;
   gap: 20px;
   padding: 20px;
+  z-index: 1;
 }
 
 #task-form[data-visible="true"] {
@@ -405,7 +408,7 @@ html, body, #root {
   display: flex;
   color: white;
   border-radius: 10px;
-  background-color: #212121;
+  background-color: #222222;
   width: 450px;
   height: 50px;
   box-shadow: 0px 2px 5px rgba(0,0,0,.25);
@@ -426,7 +429,7 @@ html, body, #root {
   padding: 0px;
   border-radius: 4px;
   border: none;
-  background-color: #212121;
+  background-color: #222222;
   cursor: pointer;
   transition: background-color 0.3s ease;
   outline: none;
@@ -442,7 +445,7 @@ html, body, #root {
 }
 
 .task-settings-button:hover svg, .task-settings-button:focus svg {
-  fill: #212121;
+  fill: #222222;
 }
 
 #loading {
@@ -475,4 +478,39 @@ html, body, #root {
 
 #logout-button:hover svg, #logout-button:focus svg {
   fill: #1E1E1E;
+}
+
+#tabs-container {
+  position: absolute;
+  top: calc(50% - 121px);
+}
+
+#tab-one {
+  z-index: 1;
+  position: relative;
+  margin-right: -10px;
+  filter: drop-shadow(0px 0px 1px rgba(0,0,0,.1));
+  clip-path: polygon(
+    0% -10%, 
+    100% -10%, 
+    100% 96%, 
+    0% 96%
+  );
+}
+
+#tab-two {
+  z-index: -1;
+  position: relative;
+  margin-right: -10px;
+}
+
+#tab-three {
+  z-index: -2;
+  position: relative;
+  margin-right: -10px;
+}
+
+#tab-four {
+  z-index: -3;
+  position: relative;
 }

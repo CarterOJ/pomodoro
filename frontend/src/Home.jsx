@@ -48,6 +48,31 @@ export function Home() {
         }     
     }
 
+    function tab(id) {
+        return (
+            <svg id={id} className="tab" width="119.5" height="36">
+                <defs>
+                    <symbol id="chrome-tab-geometry-left" viewBox="0 0 119.5 36">
+                        <path 
+                            d="M17 0h85v36H0v-2c4.5 0 9-3.5 9-8V8c0-4.5 3.5-8 8-8z"
+                            fill="#222222"/>
+                    </symbol>
+                    <symbol id="chrome-tab-geometry-right" viewBox="0 0 119.5 36">
+                        <use xlinkHref="#chrome-tab-geometry-left"/>
+                    </symbol>
+                </defs>
+                <svg width="52%" height="100%">
+                    <use xlinkHref="#chrome-tab-geometry-left" width="119.5" height="36"/>
+                </svg>
+                <g transform="scale(-1, 1)">
+                    <svg width="52%" height="100%" x="-100%" y="0">
+                        <use xlinkHref="#chrome-tab-geometry-right" width="119.5" height="36"/>
+                    </svg>
+                </g>
+            </svg>
+        );
+    }
+
     useEffect(() => {
         authenticate();
     }, []);
@@ -66,6 +91,12 @@ export function Home() {
             </button>
             <div id="welcome-container">
                 <div id="welcome-text">Welcome, {username}</div>
+            </div>
+            <div id="tabs-container">
+                {tab("tab-one")}
+                {tab("tab-two")}
+                {tab("tab-three")}
+                {tab("tab-four")}
             </div>
             <Timer taskForm={taskForm}/>
             <Tasks taskForm={taskForm} setTaskForm={setTaskForm} authenticate={authenticate}/>
