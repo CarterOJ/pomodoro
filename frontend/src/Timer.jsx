@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 
-export function Timer({ taskForm }) {
+export function Timer({ taskForm, borderColor }) {
     const [time, setTime] = useState("00:25:00");
     const [startTime, setStartTime] = useState("00:25:00");
     const [timerStarted, setTimerStarted] = useState(false);
@@ -217,7 +217,7 @@ export function Timer({ taskForm }) {
     }, []);
 
     return (
-        <form id="timer-block" inert={taskForm}>
+        <form id="timer-block" inert={taskForm} data-border-color={borderColor}>
             <div
                 id="timer-units"
                 onClick={() => setTimeout(() => cursorRef.current.setSelectionRange(1, 1), 100)} 

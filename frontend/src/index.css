@@ -156,6 +156,22 @@ html, body, #root {
   z-index: 0;
 }
 
+#timer-block[data-border-color="#1a1a1a"] {
+  border-top: 1px solid #1a1a1a;
+}
+
+#timer-block[data-border-color="blue"] {
+  border-top: 1px solid blue;  
+}
+
+#timer-block[data-border-color="yellow"] {
+  border-top: 1px solid yellow;
+}
+
+#timer-block[data-border-color="red"] {
+  border-top: 1px solid red;
+}
+
 #timer-units {
   display: flex;
   justify-content: center;
@@ -485,32 +501,32 @@ html, body, #root {
   top: calc(50% - 121px);
 }
 
-#tab-one {
+.tab[data-clicked="true"] {
   z-index: 1;
-  position: relative;
-  margin-right: -10px;
   filter: drop-shadow(0px 0px 1px rgba(0,0,0,.1));
   clip-path: polygon(
     0% -10%, 
     100% -10%, 
-    100% 96%, 
-    0% 96%
+    100% 93%, 
+    0% 93%
   );
 }
 
+#tab-one {
+  position: relative;
+  margin-right: -10px;
+}
+
 #tab-two {
-  z-index: -1;
   position: relative;
   margin-right: -10px;
 }
 
 #tab-three {
-  z-index: -2;
   position: relative;
-  margin-right: -10px;
+  margin-right: -10px;  
 }
 
 #tab-four {
-  z-index: -3;
   position: relative;
 }
