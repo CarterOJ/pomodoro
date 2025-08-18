@@ -151,7 +151,7 @@ export function Tasks({ taskForm, setTaskForm, authenticate }) {
             <div id="tasks-container">
                 {loading ? <div id="loading">Loading...</div> :
                     tasks.map(task => 
-                        <div key={task.id} className="task-container">
+                        <div key={task.id} className="task-container" tabIndex={0} inert={taskForm}>
                             <div>{task.name}</div>
                             <div className="right-task-container">
                                 <div>0/{task.work_cycles}</div>

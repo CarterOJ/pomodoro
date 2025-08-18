@@ -157,19 +157,19 @@ html, body, #root {
 }
 
 #timer-block[data-border-color="#1a1a1a"] {
-  border-top: 1px solid #1a1a1a;
+  border-top: 2px solid #1a1a1a;
 }
 
-#timer-block[data-border-color="blue"] {
-  border-top: 1px solid blue;  
+#timer-block[data-border-color="#33b5e5"] {
+  border-top: 2px solid #33b5e5;  
 }
 
-#timer-block[data-border-color="yellow"] {
-  border-top: 1px solid yellow;
+#timer-block[data-border-color="#FF6F00"] {
+  border-top: 2px solid #FF6F00;
 }
 
-#timer-block[data-border-color="red"] {
-  border-top: 1px solid red;
+#timer-block[data-border-color="#8B0000"] {
+  border-top: 2px solid #8B0000;
 }
 
 #timer-units {
@@ -432,6 +432,13 @@ html, body, #root {
   justify-content: space-between;
   padding: 0px 15px 0px 15px;
   box-sizing: border-box;
+  border: 2px solid transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.task-container:hover, .task-container:focus {
+  border: 2px solid #33b5e5;
 }
 
 .right-task-container {
@@ -498,7 +505,7 @@ html, body, #root {
 
 #tabs-container {
   position: absolute;
-  top: calc(50% - 121px);
+  top: calc(50% - 122px);
 }
 
 .tab[data-clicked="true"] {
@@ -507,26 +514,34 @@ html, body, #root {
   clip-path: polygon(
     0% -10%, 
     100% -10%, 
-    100% 93%, 
-    0% 93%
+    100% 100%, 
+    0% 100%
   );
+}
+
+.tab:focus .tab-text {
+  text-decoration: underline;
 }
 
 #tab-one {
   position: relative;
   margin-right: -10px;
+  outline: none;
 }
 
 #tab-two {
   position: relative;
   margin-right: -10px;
+  outline: none;
 }
 
 #tab-three {
   position: relative;
-  margin-right: -10px;  
+  margin-right: -10px; 
+  outline: none; 
 }
 
 #tab-four {
   position: relative;
+  outline: none;
 }
