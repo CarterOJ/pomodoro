@@ -15,6 +15,7 @@ export function Timer({
 
         const startTimeRef = useRef(null);
         const cursorRef = useRef(null);
+        const dingRef = useRef(null);
 
         const digits = time.replace(/:/g, "");
         const hoursTens = digits.charAt(0);
@@ -63,6 +64,7 @@ export function Timer({
                 const remainingSecs = parseInt(secondsTens) * 10 + parseInt(secondsOnes);
                 const remaingTotalSeconds = remainingHourSecs + remainingMinuteSecs + remainingSecs - elapsedSecs;
                 if (remaingTotalSeconds < 0) {
+                    dingRef.current.play();
                     nextTab();
                     return;
                 }
@@ -84,7 +86,7 @@ export function Timer({
 
         function handleKeyDown(e) {
             const isDigit = /^\d$/.test(e.key);
-            const tab = Object.keys(tabsClicked).find(k => tabsClicked[k] === true)
+            const tab = Object.keys(tabsClicked).find(k => tabsClicked[k] === true);
             if (isDigit && !timerStarted && !timerPaused) {
                 const shifted = digits.slice(1) + e.key;
                 const newTime = shifted.replace(/(\d{2})(\d{2})(\d{2})/, "$1:$2:$3");
@@ -286,6 +288,8 @@ export function Timer({
         }
 
         useEffect(() => {
+            dingRef.current = new Audio("/ding.mp3");
+            dingRef.current.load();
             return () => clearTimeout(timerRef.current);
         }, []);
 

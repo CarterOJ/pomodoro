@@ -90,7 +90,6 @@ export function Home() {
             if (isUpdating) {
                 const updatedTask = taskList.find(task => task.id === taskId);
                 setName(updatedTask.name);
-                console.log(updatedTask)
                 setWorkCycles(updatedTask.work_cycles);
                 setNotes(updatedTask.notes);
             }
@@ -99,10 +98,6 @@ export function Home() {
     }
 
     async function updateWorkCycles(completedWorkCycles) {
-        console.log(name);
-        console.log(workCycles);
-        console.log(completedWorkCycles)
-        console.log(notes)
         setLoading(true);
         await authenticate();
         await fetch(`http://localhost:8000/api/pomodoro/tasks/${taskId}/`, {

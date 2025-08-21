@@ -3,6 +3,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CloseIcon from '@mui/icons-material/Close';
 
 export function Tasks({ 
     taskForm, setTaskForm, 
@@ -73,6 +74,7 @@ export function Tasks({
                         placeholder="Task Name" 
                         maxLength={15}
                         value={name}
+                        autoComplete="off"
                         onChange={e => setName(e.target.value)}
                         required>
                     </input>
@@ -120,15 +122,14 @@ export function Tasks({
                         </button>
                         {editingTasks ?
                             <div>
-                                <button type="button" className="decline-button" onClick={deleteTask}>Delete</button>
+                                <button id="delete-button" type="button" onClick={deleteTask}>Delete</button>
                                 <button id="confirm-button">Update</button>
-                                <button type="button" className="decline-button" onClick={exitTaskWindow}>Cancel</button>
                             </div> :
                             <div>
-                                <button type="button" className="decline-button" onClick={exitTaskWindow}>Cancel</button>
                                 <button id="confirm-button">Save</button>                            
                             </div>
                         }
+                        <button id="exit-button" type="button" onClick={exitTaskWindow}><CloseIcon /></button>
                     </div>
                 </form>
                 <div id="tasks-container">
@@ -163,7 +164,7 @@ export function Tasks({
                                             setNotes(task.notes);
                                             setTaskForm(true);
                                             setEditingTasks(true);
-                                            setTaskId(task.id)
+                                            setTaskId(task.id);
                                             e.currentTarget.blur();
                                         }}>
                                             <MoreVertIcon />
