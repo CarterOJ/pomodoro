@@ -7,16 +7,27 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 export function Home() {
     const [time, setTime] = useState("00:10:00");
-    const [startingTimerTime, setStartingTimerTime] = useState("00:10:00");
-    const [startingWorkTime, setStartingWorkTime] = useState("00:25:00");
-    const [startingShortBreakTime, setStartingShortBreakTime] = useState("00:05:00");
-    const [startingLongBreakTime, setStartingLongBreakTime] = useState("00:15:00");
-    const [passedSetFunctions, setPassedSetFunctions] = useState([]);
     const [taskForm, setTaskForm] = useState(false);
     const [borderColor, setBorderColor] = useState("#1a1a1a");
     const [timerStarted, setTimerStarted] = useState(false);
     const [timerReset, setTimerReset] = useState(true);
     const [timerPaused, setTimerPaused] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [taskId, setTaskId] = useState();
+    const [name, setName] = useState("");
+    const [workCycles, setWorkCycles] = useState(1);
+    const [completedWorkCycles, setCompletedWorkCycles] = useState();
+    const [notes, setNotes] = useState("");
+    const [tasks, setTasks] = useState([]);
+    const [addNote, setAddNote] = useState(false);
+    const [editingTasks, setEditingTasks] = useState(false);
+    const [taskSelected, setTaskSelected] = useState(false);
+    const [startTimes, setStartTimes] = useState({
+        "tab-one": "00:10:00",
+        "tab-two": "00:25:00",
+        "tab-three": "00:05:00",
+        "tab-four": "00:15:00",
+    });
     const [tabsClicked, setTabsClicked] = useState({
         "tab-one": true, 
         "tab-two": false, 
@@ -66,28 +77,72 @@ export function Home() {
         }     
     }
 
+    async function getTasks(isUpdating) {
+        await authenticate();
+        const res = await fetch("http://localhost:8000/api/pomodoro/tasks/", {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("access")}`
+            }
+        });
+        if (res.ok) {
+            const taskList = await res.json();
+            setTasks(taskList);
+            if (isUpdating) {
+                const updatedTask = taskList.find(task => task.id === taskId);
+                setName(updatedTask.name);
+                console.log(updatedTask)
+                setWorkCycles(updatedTask.work_cycles);
+                setNotes(updatedTask.notes);
+            }
+        }
+        setLoading(false);
+    }
+
+    async function updateWorkCycles(completedWorkCycles) {
+        console.log(name);
+        console.log(workCycles);
+        console.log(completedWorkCycles)
+        console.log(notes)
+        setLoading(true);
+        await authenticate();
+        await fetch(`http://localhost:8000/api/pomodoro/tasks/${taskId}/`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("access")}`,
+            },
+            body: JSON.stringify({name, work_cycles: workCycles, completed_work_cycles: completedWorkCycles, notes})
+        });
+        await getTasks();
+    }
+
+    function exitTaskWindow() {
+        setTaskForm(false);
+        setTimeout(() => {
+            setEditingTasks(false);
+        }, 300);
+        setAddNote(false);
+    }
+
     function handleTabClick(id) {
         restartTimer();
+        setTaskSelected(true);
         switch (id) {
             case "tab-one":
                 setBorderColor("#1a1a1a");
-                setTime(startingTimerTime);
-                setPassedSetFunctions([startingTimerTime, setStartingTimerTime]);
+                setTime(startTimes["tab-one"]);
                 break;
             case "tab-two":
                 setBorderColor("#33b5e5");
-                setTime(startingWorkTime);
-                setPassedSetFunctions([startingWorkTime, setStartingWorkTime]);
+                setTime(startTimes["tab-two"]);
                 break;
             case "tab-three":
                 setBorderColor("#FF6F00");
-                setTime(startingShortBreakTime);
-                setPassedSetFunctions([startingShortBreakTime, setStartingShortBreakTime]);
+                setTime(startTimes["tab-three"]);
                 break;
             case "tab-four":
                 setBorderColor("#8B0000");
-                setTime(startingLongBreakTime);
-                setPassedSetFunctions([startingLongBreakTime, setStartingLongBreakTime]);
+                setTime(startTimes["tab-four"]);
                 break;
         }
         setTabsClicked(prev => {
@@ -102,7 +157,13 @@ export function Home() {
     function tab(id, text) {
         return (
             <svg 
-                id={id} className="tab" width="120" height="36" data-clicked={tabsClicked[id]} tabIndex={1}>
+                id={id} 
+                className="tab" 
+                width="120" 
+                height="36" 
+                data-clicked={tabsClicked[id]} 
+                tabIndex={1}
+                onKeyDown={e => (e.key === "Enter" || e.key === " ") && (taskSelected && handleTabClick(id))}>
                 <defs>
                     <symbol id={`${id}-chrome-tab-geometry-left`} viewBox="0 -2 120 36">
                         <path 
@@ -115,11 +176,11 @@ export function Home() {
                         <use xlinkHref={`#${id}-chrome-tab-geometry-left`}/>
                     </symbol>
                 </defs>
-                <svg width="52%" height="100%" onMouseDown={() => handleTabClick(id)}>
+                <svg width="52%" height="100%" onClick={() => taskSelected && handleTabClick(id)}>
                     <use xlinkHref={`#${id}-chrome-tab-geometry-left`} width="120" height="36" style={{ cursor: "pointer" }}/>
                 </svg>
                 <g transform="scale(-1, 1)">
-                    <svg width="52%" height="100%" x="-100%" y="0" onMouseDown={() => handleTabClick(id)}>
+                    <svg width="52%" height="100%" x="-100%" y="0" onClick={() => taskSelected && handleTabClick(id)}>
                         <use xlinkHref={`#${id}-chrome-tab-geometry-left`} width="120" height="36" style={{ cursor: "pointer" }}/>
                     </svg>
                 </g>
@@ -133,7 +194,8 @@ export function Home() {
 
     function restartTimer() {
         clearTimeout(timerRef.current);
-        setTime(passedSetFunctions[0]);
+        const tab = Object.keys(tabsClicked).find(k => tabsClicked[k] === true);
+        setTime(startTimes[tab]);
         setTimerStarted(false);
         setTimerReset(true);
         setTimerPaused(false);
@@ -158,7 +220,7 @@ export function Home() {
             <div id="welcome-container">
                 <div id="welcome-text">Welcome, {username}</div>
             </div>
-            <div id="tabs-container">
+            <div id="tabs-container" inert={taskForm}>
                 {tab("tab-one", "Timer")}
                 {tab("tab-two", "Work")}
                 {tab("tab-three", "Short Break")}
@@ -169,7 +231,7 @@ export function Home() {
                 borderColor={borderColor} 
                 time={time} 
                 setTime={setTime}
-                setStartTime={passedSetFunctions[1]}
+                setStartTimes={setStartTimes}
                 handleTabClick={handleTabClick}
                 tabsClicked={tabsClicked}
                 timerStarted={timerStarted}
@@ -180,8 +242,36 @@ export function Home() {
                 setTimerReset={setTimerReset}
                 timerRef={timerRef}
                 restartTimer={restartTimer}
-                />
-            <Tasks taskForm={taskForm} setTaskForm={setTaskForm} authenticate={authenticate}/>
+                updateWorkCycles={updateWorkCycles}
+                completedWorkCycles={completedWorkCycles}
+                setCompletedWorkCycles={setCompletedWorkCycles}
+                workCycles={workCycles}
+                setTaskSelected={setTaskSelected}/>
+            <Tasks 
+                taskForm={taskForm} 
+                setTaskForm={setTaskForm} 
+                authenticate={authenticate}
+                loading={loading}
+                setLoading={setLoading}
+                taskId={taskId}
+                setTaskId={setTaskId}
+                name={name}
+                setName={setName}
+                workCycles={workCycles}
+                setWorkCycles={setWorkCycles}
+                notes={notes}
+                setNotes={setNotes}
+                setCompletedWorkCycles={setCompletedWorkCycles}
+                getTasks={getTasks}
+                tasks={tasks}
+                exitTaskWindow={exitTaskWindow}
+                addNote={addNote}
+                setAddNote={setAddNote}
+                editingTasks={editingTasks}
+                setEditingTasks={setEditingTasks}
+                handleTabClick={handleTabClick}
+                taskSelected={taskSelected}
+                setTaskSelected={setTaskSelected}/>
         </div>
     );
 }
