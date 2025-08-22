@@ -44,7 +44,7 @@ export function Home() {
     async function refreshToken() {
         const refresh = localStorage.getItem("refresh");
         if (!refresh) return false;
-        const res = await fetch("http://localhost:8000/api/users/login/refresh/", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/login/refresh/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export function Home() {
 
     async function getTasks(isUpdating) {
         await authenticate();
-        const res = await fetch("http://localhost:8000/api/pomodoro/tasks/", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/pomodoro/tasks/`, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("access")}`
             }
@@ -100,7 +100,7 @@ export function Home() {
     async function updateWorkCycles(completedWorkCycles) {
         setLoading(true);
         await authenticate();
-        await fetch(`http://localhost:8000/api/pomodoro/tasks/${taskId}/`, {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/pomodoro/tasks/${taskId}/`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
