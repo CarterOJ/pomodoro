@@ -289,6 +289,7 @@ export function Timer({
 
         useEffect(() => {
             dingRef.current = new Audio("/ding.mp3");
+            dingRef.current.preload = "auto";
             dingRef.current.load();
             return () => clearTimeout(timerRef.current);
         }, []);

@@ -10,29 +10,21 @@ export function SignUp() {
 
     async function handleSignUp(e) {
         e.preventDefault();
-        try {
-            if (newPassword === confirmedPassword) {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/register/`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({username: newUsername, password: newPassword})
-                });
-                if (res.ok) {
-                    navigate("/login");
-                } else {
-                    alert("Sign up failed!")
-                    const data = await res.json();
-                    console.error("Sign up failed with status:", res.status);
-                    console.error("Backend response:", data);
-                }
+        if (newPassword === confirmedPassword) {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/register/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({username: newUsername, password: newPassword})
+            });
+            if (res.ok) {
+                navigate("/login");
             } else {
-                alert("Passwords do not match!");
+                alert("Sign up failed!")
             }
-        } catch (err) {
-            console.error("Network or fetch error:", err);
-            alert("Sign up failed due to a network error.");
+        } else {
+            alert("Passwords do not match!");
         }
     }
 
