@@ -11,7 +11,7 @@ export function SignUp() {
     async function handleSignUp(e) {
         e.preventDefault();
         if (newPassword === confirmedPassword) {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/register/`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/register/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

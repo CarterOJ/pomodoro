@@ -23,7 +23,7 @@ export function Tasks({
             setLoading(true);
             await authenticate();
             if (editingTasks === true) {
-                await fetch(`${process.env.REACT_APP_API_URL}/api/pomodoro/tasks/${taskId}/`, {
+                await fetch(`${import.meta.env.VITE_API_URL}/api/pomodoro/tasks/${taskId}/`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export function Tasks({
                 });
                 await getTasks(true); 
             } else {
-                await fetch(`${process.env.REACT_APP_API_URL}/api/pomodoro/tasks/`, {
+                await fetch(`${import.meta.env.VITE_API_URL}/api/pomodoro/tasks/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export function Tasks({
         async function deleteTask() {
             setLoading(true);
             await authenticate();
-            await fetch(`${process.env.REACT_APP_API_URL}/api/pomodoro/tasks/${taskId}/`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/api/pomodoro/tasks/${taskId}/`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("access")}`,

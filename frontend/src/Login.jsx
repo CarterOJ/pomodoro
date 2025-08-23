@@ -9,7 +9,7 @@ export function Login() {
 
     async function handleLogin(e) {
         e.preventDefault();
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/login/`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
