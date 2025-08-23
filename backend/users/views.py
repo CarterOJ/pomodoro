@@ -18,8 +18,8 @@ class RegisterView(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             # Log the errors for debugging
-            print(f"User registration failed: {serializer.errors}")
-            print(f"Request data: {request.data}")  # optional, careful with passwords
+            print(f"User registration failed: {serializer.errors}", flush=True)
+            print(f"Request data: {request.data}", flush=True)  # optional, careful with passwords
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CustomTokenObtainPairView(TokenObtainPairView):
