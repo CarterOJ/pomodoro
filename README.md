@@ -2,7 +2,7 @@
 
 A sleek and simple Pomodoro timer web app to boost productivity using focused work sessions and regular breaks. Built with **React** for the frontend and **Django** for the backend, this application adds versatility and elegance to the pomodoro technique.
 
-Check it out here: [Pomodoro Timer](https://pomodoro-ob7q.onrender.com)
+Check it out here: [Pomodoro Timer](https://pomodoro-gray-ten.vercel.app)
 
 ---
 
