@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics
 from .serializers import RegisterSerializer, CustomTokenObtainPairSerializer
 from rest_framework.permissions import AllowAny
