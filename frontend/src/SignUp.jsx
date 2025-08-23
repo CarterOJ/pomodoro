@@ -23,6 +23,7 @@ export function SignUp() {
                     navigate("/login");
                 } else {
                     alert("Sign up failed!")
+                    const data = await res.json();
                     console.error("Sign up failed with status:", res.status);
                     console.error("Backend response:", data);
                 }
