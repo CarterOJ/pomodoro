@@ -33,7 +33,7 @@ export function Login({loading, setLoading}) {
         <div id="auth-area">
             <div id="left-block"></div>
             <div id="right-block"></div>
-            {loading ? <div>Signing In...</div> : 
+            {loading ? <div id="loading">Signing In...</div> : 
                 <form id="auth-block" onSubmit={handleLogin}>
                     <div id="auth-text">Login</div>
                     <div id="input-block">

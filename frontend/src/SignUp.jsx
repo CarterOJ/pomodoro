@@ -34,7 +34,7 @@ export function SignUp({loading, setLoading}) {
         <div id="auth-area">
             <div id="left-block"></div>
             <div id="right-block"></div>
-            {loading ? <div>Creating Account...</div> : 
+            {loading ? <div id="loading">Creating Account...</div> : 
                 <form id="auth-block" onSubmit={handleSignUp}>
                     <div id="auth-text">Sign Up</div>
                     <div id="input-block">
