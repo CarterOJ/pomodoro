@@ -211,10 +211,10 @@ export function Home({startTransition, setStartTransition}) {
                 inert={taskForm}
                 data-disappear={startTransition}
                 onClick={() => {
-                    localStorage.clear();
                     setStartTransition(true);
                     setTimeout(() => {
                         navigate("/login");
+                        localStorage.clear();
                         setStartTransition(false);
                     }, 2000);
                 }}>
