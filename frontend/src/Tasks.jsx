@@ -62,7 +62,6 @@ export function Tasks({
         }
 
         useEffect(() => {
-            setLoading(true);
             getTasks();
         }, []);
 

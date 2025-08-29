@@ -11,7 +11,7 @@ function App() {
         <Routes>
             <Route path="/login" element={<Login loading={loading} setLoading={setLoading}/>}/>
             <Route path="/signup" element={<SignUp loading={loading} setLoading={setLoading}/>}/>
-            <Route path="/" element={<Home loading={loading} setLoading={setLoading}/>}/>
+            <Route path="/" element={<Home />}/>
         </Routes>
     );
 }

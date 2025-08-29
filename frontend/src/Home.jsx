@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { jwtDecode } from 'jwt-decode';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-export function Home({loading, setLoading}) {
+export function Home() {
     const [time, setTime] = useState("00:10:00");
     const [taskForm, setTaskForm] = useState(false);
     const [borderColor, setBorderColor] = useState("#1a1a1a");
@@ -21,6 +21,7 @@ export function Home({loading, setLoading}) {
     const [addNote, setAddNote] = useState(false);
     const [editingTasks, setEditingTasks] = useState(false);
     const [taskSelected, setTaskSelected] = useState(false);
+    const [loading, setLoading] = useState(true)
     const [startTimes, setStartTimes] = useState({
         "tab-one": "00:10:00",
         "tab-two": "00:25:00",
