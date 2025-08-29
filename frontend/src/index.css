@@ -443,6 +443,7 @@ html, body, #root {
 .task-container[data-selected="true"] {
   background-color: #33b5e5;
 }
+
 .task-container:hover, .task-container:focus {
   border: 2px solid white;
 }
@@ -481,6 +482,10 @@ html, body, #root {
 .task-settings-button svg {
   fill: rgb(175, 178, 177);
   transition: fill 0.3s ease;
+}
+
+.task-container:has(.task-settings-button:hover):not(:has(.task-settings-button[data-selected="true"]:hover)) {
+  border: 2px solid transparent;
 }
 
 .task-settings-button:hover, .task-settings-button:focus {
