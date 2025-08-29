@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-export function Login({loading, setLoading}) {
+export function Login({loading, setLoading, startTransition, setStartTransition}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -10,6 +10,7 @@ export function Login({loading, setLoading}) {
     async function handleLogin(e) {
         setLoading(true);
         e.preventDefault();
+
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login/`, {
             method: "POST",
             headers: {
@@ -22,17 +23,23 @@ export function Login({loading, setLoading}) {
             localStorage.setItem("access", data.access);
             localStorage.setItem("refresh", data.refresh);
             localStorage.setItem("username", data.username);
-            navigate("/");
+            setStartTransition(true);
+            setTimeout(() => {
+                navigate("/");
+                setLoading(false);
+                setStartTransition(false);
+            }, 2000);
         } else {
-            alert("Login failed!")
+            alert("Login failed!");
+            setLoading(false);
+            setStartTransition(false);
         }
-        setLoading(false);
     }
 
     return (
         <div id="auth-area">
-            <div id="left-block"></div>
-            <div id="right-block"></div>
+            <div data-transition={startTransition} id="left-block"></div>
+            <div data-transition={startTransition} id="right-block"></div>
             {loading ? <div id="loading">Signing In...</div> : 
                 <form id="auth-block" onSubmit={handleLogin}>
                     <div id="auth-text">Login</div>

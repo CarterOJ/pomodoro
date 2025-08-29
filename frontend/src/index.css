@@ -110,7 +110,7 @@ html, body, #root {
 }
 
 #left-block {
-  position: absolute;
+  position: fixed;
   left: -150px;
   top: 0px;
   width: 300px;
@@ -118,10 +118,16 @@ html, body, #root {
   transform: rotate(45deg);
   background: var(--login-gradient);
   border-radius: 10px;
+  transition: top 2s ease, transform 2s ease;
+}
+
+#left-block[data-transition="true"] {
+  top: calc(100vh - 300px);
+  transform: rotate(135deg);
 }
 
 #right-block {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   right: -150px;
   width: 300px;
@@ -129,6 +135,12 @@ html, body, #root {
   transform: rotate(45deg);
   background: var(--login-gradient);
   border-radius: 10px;
+  transition: bottom 2s ease, transform 2s ease;
+}
+
+#right-block[data-transition="true"] {
+  bottom: calc(100vh - 300px);
+  transform: rotate(135deg);
 }
 
 #timer-area {
@@ -514,13 +526,17 @@ html, body, #root {
   background-color: #1E1E1E;
   border: none;
   padding: 5px;
-  position: absolute;
+  position: fixed;
   top: 10px;
   left: 10px;
   cursor: pointer;
   outline: none;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+}
+
+#logout-button[data-disappear="true"] {
+  visibility: hidden;
 }
 
 #logout-button svg {
@@ -538,7 +554,7 @@ html, body, #root {
 
 #tabs-container {
   position: absolute;
-  top: calc(50% - 122px);
+  top: calc(50% - 118.45px);
 }
 
 .tab[data-clicked="true"] {
@@ -547,8 +563,8 @@ html, body, #root {
   clip-path: polygon(
     0% -10%, 
     100% -10%, 
-    100% 100%, 
-    0% 100%
+    100% 99%, 
+    0% 99%
   );
 }
 
@@ -558,19 +574,19 @@ html, body, #root {
 
 #tab-one {
   position: relative;
-  margin-right: -10px;
+  margin-right: -12px;
   outline: none;
 }
 
 #tab-two {
   position: relative;
-  margin-right: -10px;
+  margin-right: -12px;
   outline: none;
 }
 
 #tab-three {
   position: relative;
-  margin-right: -10px; 
+  margin-right: -12px; 
   outline: none; 
 }
 
@@ -605,4 +621,38 @@ html, body, #root {
   margin: 10px;
   color: white;
   cursor: pointer;
+}
+
+#top-block {
+  position: fixed;
+  left: -150px;
+  bottom: 0px;
+  width: 300px;
+  height: 300px;
+  transform: rotate(135deg);
+  background: var(--login-gradient);
+  border-radius: 10px;
+  transition: bottom 2s ease, transform 2s ease;
+}
+
+#bottom-block {
+  position: fixed;
+  top: 0px;
+  right: -150px;
+  width: 300px;
+  height: 300px;
+  transform: rotate(135deg);
+  background: var(--login-gradient);
+  border-radius: 10px;
+  transition: top 2s ease, transform 2s ease;
+}
+
+#top-block[data-transition="true"] {
+  bottom: calc(100vh - 300px);
+  transform: rotate(45deg);
+}
+
+#bottom-block[data-transition="true"] {
+  top: calc(100vh - 300px);
+  transform: rotate(45deg);
 }

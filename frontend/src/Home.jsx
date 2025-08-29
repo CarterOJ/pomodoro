@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { jwtDecode } from 'jwt-decode';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-export function Home() {
+export function Home({startTransition, setStartTransition}) {
     const [time, setTime] = useState("00:10:00");
     const [taskForm, setTaskForm] = useState(false);
     const [borderColor, setBorderColor] = useState("#1a1a1a");
@@ -162,9 +162,10 @@ export function Home() {
                 <defs>
                     <symbol id={`${id}-chrome-tab-geometry-left`} viewBox="0 -2 120 36">
                         <path 
-                            d="M17 0h85v36H0v-2c4 0 9-3 9-8V8c0-4 3-8 8-8z"
+                            d="M17 0h85v36H0v-6c4 0 9-3 9-8V8c0-4 3-8 8-8z"
                             fill="#222222"
                             stroke={tabsClicked[id] ? borderColor : null}
+                            strokeDasharray={114}
                             strokeWidth="2"/>
                     </symbol>
                     <symbol id={`${id}-chrome-tab-geometry-right`} viewBox="0 -2 120 36">
@@ -180,7 +181,7 @@ export function Home() {
                     </svg>
                 </g>
                 <text 
-                    className="tab-text" x="50%" y="50%" fontSize="15" textAnchor="middle" dy="6px" fill="white" pointerEvents="none">
+                    className="tab-text" x="50%" y="50%" fontSize="15" textAnchor="middle" dy="5px" fill="white" pointerEvents="none">
                     {text}
                 </text>
             </svg>
@@ -202,13 +203,20 @@ export function Home() {
 
     return (
         <div id="timer-area">
+            <div data-transition={startTransition} id="top-block"></div>
+            <div data-transition={startTransition} id="bottom-block"></div>
             <button 
                 tabIndex={1} 
                 id="logout-button" 
                 inert={taskForm}
+                data-disappear={startTransition}
                 onClick={() => {
                     localStorage.clear();
-                    navigate("/login");
+                    setStartTransition(true);
+                    setTimeout(() => {
+                        navigate("/login");
+                        setStartTransition(false);
+                    }, 2000);
                 }}>
                     <LogoutIcon fontSize='large'/>
             </button>
