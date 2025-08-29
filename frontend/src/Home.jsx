@@ -5,14 +5,13 @@ import { useState, useEffect, useRef } from "react";
 import { jwtDecode } from 'jwt-decode';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-export function Home() {
+export function Home({loading, setLoading}) {
     const [time, setTime] = useState("00:10:00");
     const [taskForm, setTaskForm] = useState(false);
     const [borderColor, setBorderColor] = useState("#1a1a1a");
     const [timerStarted, setTimerStarted] = useState(false);
     const [timerReset, setTimerReset] = useState(true);
     const [timerPaused, setTimerPaused] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [taskId, setTaskId] = useState();
     const [name, setName] = useState("");
     const [workCycles, setWorkCycles] = useState(1);
@@ -115,8 +114,8 @@ export function Home() {
         setTaskForm(false);
         setTimeout(() => {
             setEditingTasks(false);
+            setAddNote(false);
         }, 300);
-        setAddNote(false);
     }
 
     function handleTabClick(id) {

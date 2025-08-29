@@ -4,11 +4,13 @@ import { Home } from './Home';
 import { SignUp } from './SignUp';
 
 function App() {
+    const [loading, setLoading] = useState(false);
+    
     return (
         <Routes>
-            <Route path="/login" element={<Login />}/>
-            <Route path="/signup" element={<SignUp />}/>
-            <Route path="/" element={<Home />}/>
+            <Route path="/login" element={<Login loading={loading} setLoading={setLoading}/>}/>
+            <Route path="/signup" element={<SignUp loading={loading} setLoading={setLoading}/>}/>
+            <Route path="/" element={<Home loading={loading} setLoading={setLoading}/>}/>
         </Routes>
     );
 }
