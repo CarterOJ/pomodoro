@@ -155,7 +155,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+
   color: white;
   font-size: 10vmin;
   border-radius: 20px;
@@ -196,12 +196,9 @@ html, body, #root {
   border: none;
   color: white;
   font-size: 10vmin;
-  width: 10px;
-  /*6vmin*/
-  display: flex;
-  justify-content: center;
+  width: 6vmin;
+  text-align: center;
   outline: none;
-  
 }
 
 #timer-units[data-paused="true"], .timer-unit[data-paused="true"] {
