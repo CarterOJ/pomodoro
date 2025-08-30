@@ -223,33 +223,35 @@ export function Home({startTransition, setStartTransition}) {
             <div id="welcome-container">
                 <div id="welcome-text">Welcome, {username}</div>
             </div>
-            <div id="tabs-container" inert={taskForm}>
-                {tab("tab-one", "Timer")}
-                {tab("tab-two", "Work")}
-                {tab("tab-three", "Short Break")}
-                {tab("tab-four", "Long Break")}
+            <div id="timer-tab-block">
+                <div id="tabs-container" inert={taskForm}>
+                    {tab("tab-one", "Timer")}
+                    {tab("tab-two", "Work")}
+                    {tab("tab-three", "Short Break")}
+                    {tab("tab-four", "Long Break")}
+                </div>
+                <Timer 
+                    taskForm={taskForm} 
+                    borderColor={borderColor} 
+                    time={time} 
+                    setTime={setTime}
+                    setStartTimes={setStartTimes}
+                    handleTabClick={handleTabClick}
+                    tabsClicked={tabsClicked}
+                    timerStarted={timerStarted}
+                    setTimerStarted={setTimerStarted}
+                    timerPaused={timerPaused}
+                    setTimerPaused={setTimerPaused}
+                    timerReset={timerReset}
+                    setTimerReset={setTimerReset}
+                    timerRef={timerRef}
+                    restartTimer={restartTimer}
+                    updateWorkCycles={updateWorkCycles}
+                    completedWorkCycles={completedWorkCycles}
+                    setCompletedWorkCycles={setCompletedWorkCycles}
+                    workCycles={workCycles}
+                    setTaskSelected={setTaskSelected}/>
             </div>
-            <Timer 
-                taskForm={taskForm} 
-                borderColor={borderColor} 
-                time={time} 
-                setTime={setTime}
-                setStartTimes={setStartTimes}
-                handleTabClick={handleTabClick}
-                tabsClicked={tabsClicked}
-                timerStarted={timerStarted}
-                setTimerStarted={setTimerStarted}
-                timerPaused={timerPaused}
-                setTimerPaused={setTimerPaused}
-                timerReset={timerReset}
-                setTimerReset={setTimerReset}
-                timerRef={timerRef}
-                restartTimer={restartTimer}
-                updateWorkCycles={updateWorkCycles}
-                completedWorkCycles={completedWorkCycles}
-                setCompletedWorkCycles={setCompletedWorkCycles}
-                workCycles={workCycles}
-                setTaskSelected={setTaskSelected}/>
             <Tasks 
                 taskForm={taskForm} 
                 setTaskForm={setTaskForm} 

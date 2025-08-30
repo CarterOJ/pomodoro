@@ -554,9 +554,15 @@ html, body, #root {
   fill: #1E1E1E;
 }
 
+#timer-tab-block {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 #tabs-container {
   position: absolute;
-  top: calc(50% - 118.45px);
+  top: -31px;
 }
 
 .tab[data-clicked="true"] {
