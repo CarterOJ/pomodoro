@@ -155,7 +155,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  justify-content: space-between;
   color: white;
   font-size: 10vmin;
   border-radius: 20px;
@@ -196,7 +196,7 @@ html, body, #root {
   border: none;
   color: white;
   font-size: 10vmin;
-  width: 6vmin;
+  width: 1ch;
   text-align: center;
   outline: none;
 }
