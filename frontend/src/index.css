@@ -316,7 +316,7 @@ html, body, #root {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 500px;
+  width: 75vmin;
   transform: translate(-50%, -50%);
   background-color: rgba(255, 255, 255, 0.03);
   border-radius: 30px;
@@ -584,13 +584,12 @@ html, body, #root {
   margin-right: 0px;
 }
 
-
-@media (max-width: 685px) { .tab { transform: scale(0.9); margin-right: -18px;} }
-@media (max-width: 652px) { .tab { transform: scale(0.8); margin-right: -28px;} }
-@media (max-width: 575px) { .tab { transform: scale(0.7); margin-right: -38px;} }
-@media (max-width: 520px) { .tab { transform: scale(0.6); margin-right: -48px;} }
-@media (max-width: 450px) { .tab { transform: scale(0.5); margin-right: -58px;} }
-@media (max-width: 400px) { .tab { transform: scale(0.4); margin-right: -68px;} }
+@media (max-width: 685px), (max-height: 685px) { .tab { transform: scale(0.9); margin-right: -18px;} }
+@media (max-width: 652px), (max-height: 652px) { .tab { transform: scale(0.8); margin-right: -28px;} }
+@media (max-width: 575px), (max-height: 575px) { .tab { transform: scale(0.7); margin-right: -38px;} }
+@media (max-width: 520px), (max-height: 520px) { .tab { transform: scale(0.6); margin-right: -48px;} }
+@media (max-width: 450px), (max-height: 450px) { .tab { transform: scale(0.5); margin-right: -58px;} }
+@media (max-width: 400px), (max-height: 400px) { .tab { transform: scale(0.4); margin-right: -68px;} }
 
 #advance-button {
   position: absolute;
