@@ -198,8 +198,10 @@ html, body, #root {
   font-size: 10vmin;
   width: 10px;
   /*6vmin*/
-  text-align: center;
+  display: flex;
+  justify-content: center;
   outline: none;
+  
 }
 
 #timer-units[data-paused="true"], .timer-unit[data-paused="true"] {
