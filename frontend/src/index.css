@@ -195,10 +195,12 @@ html, body, #root {
   background: none;
   border: none;
   color: white;
-  font-size: 12px;
-  width: 1ch;
+  font-size: 10vmin;
+  width: 6vmin;
   text-align: center;
   outline: none;
+  padding: 0;
+  margin: 0;
 }
 
 #timer-units[data-paused="true"], .timer-unit[data-paused="true"] {
