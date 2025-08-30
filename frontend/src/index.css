@@ -348,6 +348,7 @@ html, body, #root {
   outline: none;
   font-size: 45px;
   color: white;
+  padding: 0px;
 }
 
 #task-name::placeholder {
@@ -384,6 +385,7 @@ html, body, #root {
   border-radius: 10px;
   border: none;
   cursor: pointer;
+  fill: black;
 }
 
 #task-options-container {
@@ -408,6 +410,7 @@ html, body, #root {
   width: 55px;
   cursor: pointer;
   margin-left: 5px;
+  color: black;
 }
 
 #delete-button {
@@ -418,6 +421,7 @@ html, body, #root {
   width: 55px;
   cursor: pointer;
   margin-left: 5px;
+  color: black;
 }
 
 #notes {
@@ -427,6 +431,7 @@ html, body, #root {
   border-radius: 10px;
   padding: 5px;
   color: rgb(175, 178, 177);
+  border: 1px solid #757575;
 }
 
 #tasks-container {
