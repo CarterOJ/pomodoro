@@ -186,8 +186,6 @@ html, body, #root {
 }
 
 #timer-units {
-  display: flex;
-  justify-content: center;
   outline: none;
 }
 
