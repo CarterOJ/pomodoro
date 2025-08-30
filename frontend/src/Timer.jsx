@@ -138,7 +138,7 @@ export function Timer({
 
         function startGradient() {
             return (
-                <svg height="24" width="24">
+                <svg height="4vmin" width="4vmin" viewBox='0 0 24 24'>
                     <defs>
                         <linearGradient id="playGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             {timerPaused ? 
@@ -168,7 +168,7 @@ export function Timer({
 
         function pauseGradient() {
             return (
-                <svg height="24" width="24">
+                <svg height="4vmin" width="4vmin" viewBox='0 0 24 24'>
                     <defs>
                         <linearGradient id="pauseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#FFA500" />
@@ -190,7 +190,7 @@ export function Timer({
 
         function restartGradient() {
             return (
-                <svg height="24" width="24">
+                <svg height="4vmin" width="4vmin" viewBox='0 0 24 24'>
                     <defs>
                         <linearGradient id="restartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#FF0033" />
@@ -212,7 +212,7 @@ export function Timer({
 
         function advanceGradient() {
             return (
-                <svg height="24" width="24">
+                <svg height="4vmin" width="4vmin" viewBox='0 0 24 24'>
                     <defs>
                         <linearGradient id="advanceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#8e2de2" />
