@@ -123,7 +123,7 @@ html, body, #root {
 }
 
 #left-block[data-transition="true"] {
-  top: calc(100vh - 40vmin);
+  top: calc(100vmin - 40vmin);
   transform: rotate(135deg);
 }
 
@@ -140,7 +140,7 @@ html, body, #root {
 }
 
 #right-block[data-transition="true"] {
-  bottom: calc(100vh - 40vmin);
+  bottom: calc(100vmin - 40vmin);
   transform: rotate(135deg);
 }
 
@@ -305,7 +305,7 @@ html, body, #root {
 #welcome-container {
   display: flex;
   align-items: center;
-  height: calc(50vh - 87.5px);
+  height: calc(50vh - 10vmin);
 }
 
 #welcome-text {
@@ -385,6 +385,9 @@ html, body, #root {
   border-radius: 10px;
   border: none;
   cursor: pointer;
+}
+
+.work-cycle-buttons svg {
   fill: black;
 }
 
@@ -659,11 +662,11 @@ html, body, #root {
 }
 
 #top-block[data-transition="true"] {
-  bottom: calc(100vh - 40vmin);
+  bottom: calc(100vmin - 40vmin);
   transform: rotate(45deg);
 }
 
 #bottom-block[data-transition="true"] {
-  top: calc(100vh - 40vmin);
+  top: calc(100vmin - 40vmin);
   transform: rotate(45deg);
 }
