@@ -284,6 +284,7 @@ html, body, #root {
 #add-task {
   display: flex;
   justify-content: center;
+  align-items: center;
   border: 2px dashed rgb(175, 178, 177);
   height: 8vmin;
   border-radius: 10px;
@@ -320,7 +321,7 @@ html, body, #root {
   width: 75vmin;
   transform: translate(-50%, -50%);
   background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 30px;
+  border-radius: 5vmin;
   backdrop-filter: blur(45px);
   border-top: 1px solid rgba(255, 255, 255, 0.4);
   border-left: 1px solid rgba(255, 255, 255, 0.3);
@@ -331,8 +332,8 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 3vmin;
+  padding: 4vmin;
   z-index: 1;
 }
 
@@ -346,9 +347,10 @@ html, body, #root {
   background: none;
   border: none;
   outline: none;
-  font-size: 45px;
+  font-size: 7vmin;
   color: white;
   padding: 0px;
+  height: 7vmin;
 }
 
 #task-name::placeholder {
@@ -358,7 +360,7 @@ html, body, #root {
 
 #work-cycles-title {
   color: white;
-  font-size: 22px;
+  font-size: 4vmin;
 }
 
 #work-cycles {
@@ -367,8 +369,9 @@ html, body, #root {
   border: 1px solid white;
   color: white;
   padding: 5px;
-  height: 25px;
-  width: 20px;
+  font-size: 2.5vmin;
+  height: 3vmin;
+  width: 3vmin;
   outline: none;
   text-align: center;
 }
@@ -388,12 +391,21 @@ html, body, #root {
 }
 
 .work-cycle-buttons svg {
+  font-size: 4vmin;
+}
+
+.work-cycle-buttons svg {
   fill: black;
 }
 
 #task-options-container {
   display: flex;
   justify-content: space-between;
+}
+
+#task-submit-button {
+  display: flex;
+  align-items: center;
 }
 
 #add-note-button {
@@ -405,14 +417,20 @@ html, body, #root {
   cursor: pointer;
 }
 
+#add-note-button svg {
+  font-size: 4vmin;
+}
+
 #confirm-button {
   border-radius: 10px;
   background-image: linear-gradient(135deg, #00C851, #33b5e5);
   border: none;
-  height: 30px;
-  width: 55px;
+  height: 5vmin;
+  width: 8vmin;
+  font-size: 2vmin;
   cursor: pointer;
   margin-left: 5px;
+  padding: 0px;
   color: black;
 }
 
@@ -420,10 +438,12 @@ html, body, #root {
   border-radius: 10px;
   background-image: linear-gradient(135deg, #FF0033, #8B0000);
   border: none;
-  height: 30px;
-  width: 55px;
+  height: 5vmin;
+  width: 8vmin;
+  font-size: 2vmin;
   cursor: pointer;
   margin-left: 5px;
+  padding: 0px;
   color: black;
 }
 
@@ -435,6 +455,8 @@ html, body, #root {
   padding: 5px;
   color: rgb(175, 178, 177);
   border: 1px solid #757575;
+  height: 12vmin;
+  font-size: 2vmin;
 }
 
 #tasks-container {
@@ -449,8 +471,9 @@ html, body, #root {
   color: white;
   border-radius: 10px;
   background-color: #222222;
+  font-size: 2.5vmin;
   width: 100%;
-  height: 50px;
+  height: 8vmin;
   box-shadow: 0px 2px 5px rgba(0,0,0,.25);
   align-items: center;
   justify-content: space-between;
@@ -490,6 +513,10 @@ html, body, #root {
   cursor: pointer;
   transition: background-color 0.3s ease;
   outline: none;
+}
+
+.task-settings-button svg {
+  font-size: 4vmin;
 }
 
 .task-settings-button[data-selected="true"] {
@@ -543,6 +570,10 @@ html, body, #root {
   outline: none;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+}
+
+#logout-button svg {
+  font-size: 7vmin;
 }
 
 #logout-button[data-disappear="true"] {
@@ -601,11 +632,16 @@ html, body, #root {
 }
 
 @media (max-width: 675px), (max-height: 675px) { .tab { transform: scale(0.9); margin-right: -18px;} }
-@media (max-width: 635px), (max-height: 635px) { .tab { transform: scale(0.8); margin-right: -28px;} }
-@media (max-width: 575px), (max-height: 575px) { .tab { transform: scale(0.7); margin-right: -38px;} }
-@media (max-width: 513px), (max-height: 513px) { .tab { transform: scale(0.6); margin-right: -48px;} }
-@media (max-width: 450px), (max-height: 450px) { .tab { transform: scale(0.5); margin-right: -58px;} }
-@media (max-width: 400px), (max-height: 400px) { .tab { transform: scale(0.4); margin-right: -68px;} }
+@media (max-width: 635px), (max-height: 635px) { .tab { transform: scale(0.8); margin-right: -30px;} }
+@media (max-width: 575px), (max-height: 575px) { .tab { transform: scale(0.7); margin-right: -42px;} }
+@media (max-width: 500px), (max-height: 500px) { .tab { transform: scale(0.6); margin-right: -54px;} }
+@media (max-width: 425px), (max-height: 425px) { .tab { transform: scale(0.5); margin-right: -66px;} }
+@media (max-width: 355px), (max-height: 355px) { .tab { transform: scale(0.4); margin-right: -76px;} }
+@media (max-width: 295px), (max-height: 295px) { .tab { transform: scale(0.3); margin-right: -88px;} }
+@media (max-width: 230px), (max-height: 230px) { .tab { transform: scale(0.2); margin-right: -98px;} }
+@media (max-width: 175px), (max-height: 175px) { .tab { transform: scale(0.1); margin-right: -108px;} }
+@media (max-width: 100px), (max-height: 125px) { .tab { transform: scale(0);} }
+
 
 #advance-button {
   position: absolute;

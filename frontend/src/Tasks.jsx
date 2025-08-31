@@ -121,11 +121,11 @@ export function Tasks({
                                 <NoteAddIcon />
                         </button>
                         {editingTasks ?
-                            <div>
+                            <div id="task-submit-buttons">
                                 <button id="delete-button" type="button" onClick={deleteTask}>Delete</button>
                                 <button id="confirm-button">Update</button>
                             </div> :
-                            <div>
+                            <div id="task-submit-buttons">
                                 <button id="confirm-button">Save</button>                            
                             </div>
                         }
