@@ -18,6 +18,6 @@ Check it out here: [Pomodoro Timer](https://pomodoro-gray-ten.vercel.app)
 
 ## Tech Stack
 
-- **Frontend:** React & Vite
+- **Frontend:** React + Vite & Node.js
 - **Backend:** Django REST Framework & Poetry
 - **Deployment:** Render & Vercel
