@@ -4,6 +4,8 @@ A sleek and simple Pomodoro timer web app to boost productivity using focused wo
 
 Check it out here: [Pomodoro Timer](https://pomodoro-gray-ten.vercel.app)
 
+> **Note:** The backend is hosted on **Render**, which may take **up to one minute to spin up** upon the first request after a period of inactivity. Please wait a moment if the app seems unresponsive when trying to sign up or log in.
+
 ---
 
 ## Features
